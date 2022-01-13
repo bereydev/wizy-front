@@ -1,0 +1,10 @@
+<template>
+<Navbar />
+  <main class="text-left text-gray-700 dark:text-gray-200">
+    <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
+      <div class="flex flex-col">
+<router-view />
+      </div>
+    </div>
+  </main>
+</template>
