@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type {Tool, Field} from "~/interface"
-import { useUserStore } from '~/stores/user'
+import { useToolStore } from '~/stores/tool'
+
 interface Props {
     tool_placeholder?: Tool;
 }
-const user = useUserStore()
+const toolStore = useToolStore()
+const {updateTool, createTool} = toolStore
 
 const props = withDefaults(defineProps<Props>(), {
     tool_placeholder: () => <Tool>{
@@ -21,10 +23,10 @@ const tool = reactive(<Tool>{
 const { name } = toRefs(tool)
 
 async function submitUpdate() {
-    user.updateTool(tool)
+    updateTool(tool)
 }
 async function submitCreate() {
-    user.createTool(tool)
+    createTool(tool)
 }
 defineExpose({
     submitUpdate,

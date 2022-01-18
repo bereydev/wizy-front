@@ -2,8 +2,10 @@
 import Multiselect from '@vueform/multiselect'
 import type { Client, EventModel } from "~/interface"
 
-import { useUserStore } from '~/stores/user';
+import { useClientStore } from '~/stores/client';
+import { useEventStore } from '~/stores/event';
 import { storeToRefs } from 'pinia';
+import { useEventModelStore } from '~/stores/event-model';
 
 function addHoursToDate(date: Date, hours: number): Date {
     return new Date(new Date(date).setHours(date.getHours() + hours));
@@ -15,10 +17,13 @@ const client = ref()
 const eventModel = ref()
 const note = ref("")
 
-const user = useUserStore()
+const clientStore = useClientStore()
+const eventStore = useEventStore()
+const eventModelStore = useEventModelStore()
 
-const { clients, eventModels } = storeToRefs(user)
-const { createEvent } = user
+const { clients } = storeToRefs(clientStore)
+const { eventModels } = storeToRefs(eventModelStore)
+const { createEvent } = eventStore
 
 function createClientChoice(client: Client) {
     return {
@@ -67,28 +72,28 @@ defineExpose({
     <div class="flex w-full space-x-2">
         <div class="w-full">
             <label for="date" class="form-label">Date</label>
-            <v-date-picker v-model="startDate">
+            <!-- <v-date-picker v-model="startDate">
                 <template v-slot="{ inputValue, inputEvents }">
                     <input class="field" :value="inputValue" v-on="inputEvents" />
                 </template>
-            </v-date-picker>
+            </v-date-picker> -->
         </div>
         <div class="w-full">
             <label for="start-time" class="form-label">Début</label>
-            <v-date-picker v-model="startDate" mode="time" is24hr>
+            <!-- <v-date-picker v-model="startDate" mode="time" is24hr>
                 <template v-slot="{ inputValue, inputEvents }">
                     <input class="field" :value="inputValue" v-on="inputEvents" />
                 </template>
-            </v-date-picker>
+            </v-date-picker> -->
         </div>
         <IconoirArrowRight class="h-20 w-20" />
         <div class="w-full">
             <label for="end-time" class="form-label">Fin</label>
-            <v-date-picker v-model="endDate" mode="time" is24hr>
+            <!-- <v-date-picker v-model="endDate" mode="time" is24hr>
                 <template v-slot="{ inputValue, inputEvents }">
                     <input class="field" :value="inputValue" v-on="inputEvents" />
                 </template>
-            </v-date-picker>
+            </v-date-picker> -->
         </div>
     </div>
     <label for="note" class="form-label">Note</label>

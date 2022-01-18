@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Tool } from "~/interface"
-import { useUserStore } from '~/stores/user'
+import { useToolStore } from '~/stores/tool'
 import Modal from '../components/Modal.vue'
 import ToolForm from '../components/forms/ToolForm.vue'
 
@@ -8,10 +8,10 @@ interface Props {
   tool: Tool;
 }
 
-const user = useUserStore()
+const toolStore = useToolStore()
 const router = useRouter()
 
-const { toggleFavTool, deleteTool } = user
+const { toggleFavTool, deleteTool } = toolStore
 
 const editModal = ref<InstanceType<typeof Modal>>()
 const deleteModal = ref<InstanceType<typeof Modal>>()

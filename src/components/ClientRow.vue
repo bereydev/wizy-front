@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
+import { useClientStore } from '~/stores/client'
 import type { Client } from "~/interface"
 import Modal from '../components/Modal.vue'
 import ClientForm from '../components/forms/ClientForm.vue'
 
-const user = useUserStore()
+const clientStore = useClientStore()
+const { deleteClient } = clientStore
 const router = useRouter()
 
 const deleteModal = ref<InstanceType<typeof Modal>>()
@@ -22,7 +23,7 @@ const { client } = toRefs(props)
 
 
 function onDelete() {
-    user.deleteClient(client.value.id!)
+    deleteClient(client.value.id!)
 }
 
 function onEdit() {

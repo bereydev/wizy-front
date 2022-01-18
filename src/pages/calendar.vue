@@ -4,15 +4,15 @@ import Modal from "../components/Modal.vue"
 import QuickEventForm from "../components/forms/QuickEventForm.vue"
 import type { Event } from "~/interface"
 
-import { useUserStore } from '~/stores/user';
+import { useEventStore } from '~/stores/event';
 import { storeToRefs } from 'pinia';
 
 const createEventModal = ref<InstanceType<typeof Modal>>()
 const quickEventForm = ref<InstanceType<typeof QuickEventForm>>()
 
-const user = useUserStore()
+const eventStore = useEventStore()
 
-const { events } = storeToRefs(user)
+const { events } = storeToRefs(eventStore)
 
 const masks = {
   weekdays: 'WWW',
@@ -26,9 +26,9 @@ function processEvents(event: Event) {
   return {
     key: event.id,
     customData: {
-      titre: `${event.event_model.name} avec ${event.client_full_name} à ${displayTime(new Date(event.start))}`,
+      titre: `${event.event_model?.name} avec ${event.client_full_name} à ${displayTime(new Date(event.start))}`,
       class: 'm-1',
-      style: `background-color: ${event.event_model.color}`,
+      style: `background-color: ${event.event_model?.color}`,
     },
     dates: event.start,
   }
@@ -65,7 +65,7 @@ function attributes() {
       <Button @click="createEventModal?.toggle">Ajouter une séance</Button>
     </div>
   </div>
-  <v-calendar
+  <!-- <v-calendar
     class="custom-calendar max-w-full"
     :masks="masks"
     :attributes="attributes()"
@@ -86,7 +86,7 @@ function attributes() {
         </div>
       </div>
     </template>
-  </v-calendar>
+  </v-calendar> -->
   <Modal ref="createEventModal">
     <template v-slot:title>
       <h1>Ajouter une séance</h1>

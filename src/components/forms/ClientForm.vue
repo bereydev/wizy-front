@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user';
+import { useClientStore } from '~/stores/client';
 import type { Client } from "~/interface"
 interface Props {
     client_placeholder?: Client;
 }
-const user = useUserStore()
+const clientStore = useClientStore()
+const { createClient, updateClient } = clientStore
 
 const props = withDefaults(defineProps<Props>(), {
     client_placeholder: () => <Client>{
@@ -31,10 +32,10 @@ const client = reactive(<Client>{
 const { mail, last_name, first_name, phone, company, address, address2, city, postcode, state, discount, price, note } = toRefs(client)
 
 async function submitUpdate() {
-    user.updateClient(client)
+    updateClient(client)
 }
 async function submitCreate() {
-    user.createClient(client)
+    createClient(client)
 }
 defineExpose({
     submitUpdate,

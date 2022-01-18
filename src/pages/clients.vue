@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useUserStore } from '~/stores/user'
+import { useClientStore } from '~/stores/client'
 import ClientForm from '../components/forms/ClientForm.vue'
 import Modal from '../components/Modal.vue'
 
-const user = useUserStore()
-user.getClients()
-const {clients} = storeToRefs(user)
+const clientStore = useClientStore()
+const { getClients } = clientStore
+const { clients } = storeToRefs(clientStore)
+
+onMounted(async () => {
+  getClients()
+})
 
 const clientForm = ref<InstanceType<typeof ClientForm>>()
 const modal = ref<InstanceType<typeof Modal>>()
@@ -65,9 +69,9 @@ function onSubmit() {
       </table>
     </div>
   </div>
-    <Modal ref="modal">
+  <Modal ref="modal">
     <template v-slot:title>
-        <h1>Ajouter un nouveau client</h1>
+      <h1>Ajouter un nouveau client</h1>
     </template>
 
     <ClientForm ref="clientForm"></ClientForm>

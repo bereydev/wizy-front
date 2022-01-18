@@ -39,7 +39,6 @@ specifiers:
   unplugin-auto-import: ^0.5.4
   unplugin-icons: ^0.13.0
   unplugin-vue-components: ^0.17.11
-  v-calendar: next
   vite: ^2.7.6
   vite-plugin-inspect: ^0.3.11
   vite-plugin-md: ^0.11.7
@@ -64,7 +63,6 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.9_typescript@4.5.4+vue@3.2.26
   prism-theme-vars: 0.2.2
-  v-calendar: 3.0.0-alpha.6_@popperjs+core@2.11.2+vue@3.2.26
   vue: 3.2.26
   vue-demi: 0.12.1_vue@3.2.26
   vue-i18n: 9.1.9_vue@3.2.26
@@ -1508,8 +1506,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.2.0-beta.26
-      '@intlify/shared': 9.2.0-beta.26
+      '@intlify/message-compiler': 9.2.0-beta.28
+      '@intlify/shared': 9.2.0-beta.28
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.1.9_vue@3.2.26
@@ -1544,11 +1542,11 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /@intlify/message-compiler/9.2.0-beta.26:
-    resolution: {integrity: sha512-qtDgHCMqrXNTekKXGzm0Dm6r3+/X7/jFXP+E07hx+PJbPMv7DzK1iU8h5LlAMQ1/jr2UIRBgXvR5wh35OKoGrA==}
+  /@intlify/message-compiler/9.2.0-beta.28:
+    resolution: {integrity: sha512-NBH9fZyitN2cijGt8bmU1W7ZPdhKbgW01L1RxJKFJW0cRaCmknJq63Aif1Q6xcxKt9ZhPbvIKHgPGzg1nWMfeA==}
     engines: {node: '>= 12'}
     dependencies:
-      '@intlify/shared': 9.2.0-beta.26
+      '@intlify/shared': 9.2.0-beta.28
       source-map: 0.6.1
     dev: true
 
@@ -1571,8 +1569,8 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
-  /@intlify/shared/9.2.0-beta.26:
-    resolution: {integrity: sha512-MjUlkjNThqkqy8yXUcFKBiW/hIfqAn5cP3Vd0b4wdOHS8rPCEbvSbAnF08uiZDkVv8gTcsLyymX21GaU6oYyyQ==}
+  /@intlify/shared/9.2.0-beta.28:
+    resolution: {integrity: sha512-JBMcoj1D4kSAma7Vb0+d8z6lPLIn7hIdZJPxbU8bgeMMniwKLoIS/jGlEfrZihsB5+otckPeQp203z8skwVS0w==}
     engines: {node: '>= 12'}
     dev: true
 
@@ -1590,7 +1588,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 2.2.0_vue-i18n@9.1.9
-      '@intlify/shared': 9.2.0-beta.26
+      '@intlify/shared': 9.2.0-beta.28
       '@rollup/pluginutils': 4.1.1
       debug: 4.3.2
       fast-glob: 3.2.7
@@ -1748,10 +1746,6 @@ packages:
   /@types/linkify-it/3.0.2:
     resolution: {integrity: sha512-HZQYqbiFVWufzCwexrvh694SOim8z2d+xJl5UNamcvQFejLY/2YUtzXHYi3cHdI7PMlS8ejH2slRAOJQ32aNbA==}
     dev: true
-
-  /@types/lodash/4.14.178:
-    resolution: {integrity: sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==}
-    dev: false
 
   /@types/markdown-it-link-attributes/3.0.1:
     resolution: {integrity: sha512-K8RnNb1q8j7rDOJbMF7AnlhCC/45BjrQ8z3WZWOrvkBIl8u9RXvmBdG/hfpnmK1JhhEZcmFEKWt+ilW1Mly+2Q==}
@@ -2831,11 +2825,6 @@ packages:
       semver: 7.0.0
     dev: true
 
-  /core-js/3.20.2:
-    resolution: {integrity: sha512-nuqhq11DcOAbFBV4zCbKeGbKQsUDRqTX0oqx7AttUBuqe3h20ixsE039QHelbL6P4h+9kytVqyEtyZ6gsiwEYw==}
-    requiresBuild: true
-    dev: false
-
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
     dev: true
@@ -2983,19 +2972,6 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 10.0.0
     dev: true
-
-  /date-fns-tz/1.2.2_date-fns@2.28.0:
-    resolution: {integrity: sha512-vWtn44eEqnLbkACb7T5G5gPgKR4nY8NkNMOCyoY49NsRGHrcDmY2aysCyzDeA+u+vcDBn/w6nQqEDyouRs4m8w==}
-    peerDependencies:
-      date-fns: '>=2.0.0'
-    dependencies:
-      date-fns: 2.28.0
-    dev: false
-
-  /date-fns/2.28.0:
-    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
-    engines: {node: '>=0.11'}
-    dev: false
 
   /dayjs/1.10.7:
     resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
@@ -5122,6 +5098,7 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
 
   /log-symbols/4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -6954,21 +6931,6 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
     dev: true
-
-  /v-calendar/3.0.0-alpha.6_@popperjs+core@2.11.2+vue@3.2.26:
-    resolution: {integrity: sha512-5z9EEXE0Cmu0UWV4Kju1CNwbYqRZBgR8WAK+0NeXRppfmm28TOcVv6QmC9WG6aM0PKcCt3lo/SHboN08ViQ6/A==}
-    peerDependencies:
-      '@popperjs/core': ^2.4.0
-      vue: ^3.0.0
-    dependencies:
-      '@popperjs/core': 2.11.2
-      '@types/lodash': 4.14.178
-      core-js: 3.20.2
-      date-fns: 2.28.0
-      date-fns-tz: 1.2.2_date-fns@2.28.0
-      lodash: 4.17.21
-      vue: 3.2.26
-    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}

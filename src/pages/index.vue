@@ -1,15 +1,28 @@
 <script setup lang="ts">
 
 import { useUserStore } from '~/stores/user'
+import { useClientStore } from '~/stores/client'
+import { useEventStore } from '~/stores/event'
 import Modal from '../components/Modal.vue'
 import { storeToRefs } from 'pinia'
 
 const wizyStarModal = ref<InstanceType<typeof Modal>>()
-const user = useUserStore()
+const userStore = useUserStore()
+const eventStore = useEventStore()
+const clientStore = useClientStore()
 
-const { events, clients } = storeToRefs(user)
-const {getCurrentUser} = user
-getCurrentUser()
+const { events } = storeToRefs(eventStore)
+const { clients} = storeToRefs(clientStore)
+const {getCurrentUser} = userStore
+const {getClients} = clientStore
+const {getEvents} = eventStore 
+
+onMounted(async () => {
+  getCurrentUser()
+  getClients()
+  getEvents()
+})
+
 
 </script>
 

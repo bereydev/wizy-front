@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user';
+import { useClientStore } from '~/stores/client';
 
-const user = useUserStore()
+const clientStore = useClientStore()
+const {getClientByID} = clientStore
 
 const props = defineProps<{client_id: string }>()
 
-const client = user.getClientByID(props.client_id)
-console.log(client)
+const client = getClientByID(props.client_id)
 
 
 </script>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user'
 import Modal from '../components/Modal.vue'
 import ToolForm from '../components/forms/ToolForm.vue'
+import { useToolStore } from '~/stores/tool'
 
-const user = useUserStore()
-user.getTools()
-const { getFavTools, getNonFavTools } = user
+const toolStore = useToolStore()
+const { getTools, getFavTools, getNonFavTools } = toolStore
 
+onMounted(async () => {
+  getTools()
+})
 const createModal = ref<InstanceType<typeof Modal>>()
 const toolForm = ref<InstanceType<typeof ToolForm>>()
 

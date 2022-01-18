@@ -20,11 +20,12 @@ export interface Event extends BaseData {
     discount?: number
     payed?: boolean
     summary: string
-    event_model: EventModel
+    event_model?: EventModel
     client_id?: string
-    color: string
-    cycle_id: string
+    color?: string
+    cycle_id?: string
     client_full_name?: string
+    event_model_id?: string
 }
 
 export interface EventModel extends BaseData {
