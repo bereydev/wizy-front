@@ -75,3 +75,11 @@ const toolForm = ref<InstanceType<typeof ToolForm>>()
   display: none;
 }
 </style>
+
+<route>
+{
+  meta: {
+    requiresAuth: true
+  }
+}
+</route>

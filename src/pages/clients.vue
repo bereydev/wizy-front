@@ -82,3 +82,11 @@ function onSubmit() {
     </template>
   </Modal>
 </template>
+
+<route>
+{
+  meta: {
+    requiresAuth: true
+  }
+}
+</route>

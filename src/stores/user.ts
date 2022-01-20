@@ -1,6 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { User } from "~/interface"
 import fetchAPI from "./fetch"
+import qs from "qs"
 
 export const useUserStore = defineStore('user', () => {
 
@@ -17,10 +18,19 @@ export const useUserStore = defineStore('user', () => {
      * @password
      */
   async function login(username: string, password: string) {
-    const params = new URLSearchParams();
-    params.append("username", username);
-    params.append("password", password);
-    const data = await fetchAPI<any>('/login/access-token/')
+    // const params = new URLSearchParams();
+    // params.append("username", username);
+    // params.append("password", password);
+    const credentials = {
+      "username": username,
+      "password": password
+    }
+    const data = await fetchAPI<any>('/login/access-token/', 
+    { 
+      method: 'post',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      data: qs.stringify(credentials),
+    })
     localStorage.setItem("access-token", data.access_token)
     await getCurrentUser()
   }
@@ -39,7 +49,7 @@ export const useUserStore = defineStore('user', () => {
       email: email,
       password: password,
     }
-    const data = await fetchAPI<User>('/users/open', {method:'post', data: params});
+    const data = await fetchAPI<User>('/users/open', { method: 'post', data: params });
     currentUser.value = data
     login(email, password)
 
@@ -61,6 +71,15 @@ export const useUserStore = defineStore('user', () => {
     const accessToken = localStorage.getItem('access-token')
     return accessToken && accessToken.length > 0
   }
+
+
+  // Handle the redirect of the user if he is not logged in
+  const router = useRouter()
+  router.beforeEach((to, from) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!isLoggedIn()) return '/auth/login'
+    }
+  })
 
 
   return {

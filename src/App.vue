@@ -5,7 +5,7 @@
 useHead({
   title: 'WizyTime',
   meta: [
-    { name: 'description', content: 'CRM for coaches' },
+    { name: 'WizyTime Betâ', content: 'CRM for coaches' },
   ],
 })
 </script>

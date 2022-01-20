@@ -158,3 +158,11 @@ deep() .custom-calendar.vc-container {
 }
 </style>
 <style src="@vueform/multiselect/themes/default.css"></style>
+
+<route>
+{
+  meta: {
+    requiresAuth: true
+  }
+}
+</route>

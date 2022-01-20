@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { useClientStore } from '~/stores/client';
+import { useClientStore } from '~/stores/client'
+import { useUserStore } from '~/stores/user'
 
+const router = useRouter()
 const clientStore = useClientStore()
+const userStore = useUserStore()
+const { isLoggedIn } = userStore
 const {getClientByID} = clientStore
+
+if (isLoggedIn()) {
+  router.push('/auth/login')
+}
 
 const props = defineProps<{client_id: string }>()
 
@@ -30,3 +38,11 @@ const client = getClientByID(props.client_id)
 <FreeTimeline />
 </footer>
 </template>
+
+<route>
+{
+  meta: {
+    requiresAuth: true
+  }
+}
+</route>

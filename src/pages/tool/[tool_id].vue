@@ -14,3 +14,11 @@ console.log(tool)
 </script>
 
 <template>{{ tool }}</template>
+
+<route>
+{
+  meta: {
+    requiresAuth: true
+  }
+}
+</route>

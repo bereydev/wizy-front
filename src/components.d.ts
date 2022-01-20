@@ -6,10 +6,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AccountDropdown: typeof import('./components/AccountDropdown.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
-    CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
-    CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
-    CarbonPedestrian: typeof import('~icons/carbon/pedestrian')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     ClientForm: typeof import('./components/forms/ClientForm.vue')['default']
     ClientRow: typeof import('./components/ClientRow.vue')['default']
     EventCard: typeof import('./components/EventCard.vue')['default']

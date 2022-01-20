@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { useUserStore } from '~/stores/user';
+import { storeToRefs} from 'pinia'
 
-const user = useUserStore() 
+const userStore = useUserStore()
+const {currentUser} = storeToRefs(userStore)
+const { logout } = userStore
 const router = useRouter()
 
 const isOpen = ref(false)
 
-function logout() {
-  user.logout()
+function onLogout() {
+  logout()
   router.push('/auth/login')
 }
 </script>
@@ -37,7 +40,7 @@ function logout() {
                     />
               <div class="ml-4">
                 <p class="font-semibold text-gray-900 leading-none">
-                  {{user.currentUser.first_name}} {{user.currentUser.last_name}}
+                  {{currentUser?.first_name}} {{currentUser?.last_name}}
                 </p>
                 <p>
                   <a href="#" class="text-sm text-gray-600 leading-none hover:underline">View Profile</a>
@@ -48,7 +51,7 @@ function logout() {
               <a href="#" class="block px-6 py-3 leading-tight hover:bg-gray-200">Paramètres</a>
             </div>
             <form class="border-t-2 border-gray-200 py-1">
-              <button @click="logout" class="block w-full px-6 py-3 text-left text-red-500 leading-tight hover:bg-gray-200">
+              <button @click="onLogout" class="block w-full px-6 py-3 text-left text-red-500 leading-tight hover:bg-gray-200">
                 Sign out
               </button>
             </form>
