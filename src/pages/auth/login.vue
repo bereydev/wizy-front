@@ -3,15 +3,17 @@ import type {Field} from "~/interface"
 
 import { useUserStore } from '~/stores/user'
 
-const user = useUserStore()
+const userStore = useUserStore()
 const router = useRouter()
+
+const { login } = userStore
 
 const username = ref("")
 const password = ref("")
 
 async function onSubmit() {
   try {
-    await user.login(username.value, password.value)
+    await login(username.value, password.value)
     router.push("/")
   } catch (error: any) {
     if (error.response) {
@@ -54,16 +56,7 @@ const fieldPassword: Field = {
   <form @submit.prevent="onSubmit" class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-4">
     <Field :field="fieldUsername"></Field>
     <Field :field="fieldPassword"></Field>
-    <div class="flex items-center">
-      <div class="w-1/2 flex items-center">
-        <input id="remember-me" type="checkbox" class="mt-1 mr-2" />
-        <label for="remember-me">Se souvenir de moi !</label>
-      </div>
-      <button
-        class="ml-auto w-1/2 bg-gray-800 text-white p-2 rounded font-semibold hover:bg-gray-900"
-        type="submit"
-      >Se connecter</button>
-    </div>
+    <Button type="submit" class="w-full">Se connecter</Button>
   </form>
   <div class="text-right w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-4">
     <a class="text-sm font-bold text-teal-500 hover:underline cursor-pointer">Mot de passe oublié ?</a>

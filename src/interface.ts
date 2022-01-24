@@ -67,5 +67,4 @@ export interface Field {
     placeholder?: string
     id?: string
     autocomplete?: string
-
 }
