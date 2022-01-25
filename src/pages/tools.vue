@@ -2,12 +2,27 @@
 import Modal from '../components/Modal.vue'
 import ToolForm from '../components/forms/ToolForm.vue'
 import { useToolStore } from '~/stores/tool'
+import { ACCESS_TOKEN } from '~/stores/fetch'
+
 
 const toolStore = useToolStore()
 const { getTools, getFavTools, getNonFavTools } = toolStore
+const router = useRouter()
 
 onMounted(async () => {
-  getTools()
+    try {
+    await getTools
+  } catch (error: any) {
+    console.error(error.response.status)
+    console.table(error.response.data.detail)
+    if (error.response.status == 403) {
+      // Unvalidate the access token and redirect to login
+      localStorage.removeItem(ACCESS_TOKEN)
+      router.push('/auth/login')
+    } else if (error.response.status == 422) {
+      return
+    }
+  }
 })
 const createModal = ref<InstanceType<typeof Modal>>()
 const toolForm = ref<InstanceType<typeof ToolForm>>()

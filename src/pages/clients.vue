@@ -1,15 +1,30 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useClientStore } from '~/stores/client'
+import { ACCESS_TOKEN } from '~/stores/fetch'
 import ClientForm from '../components/forms/ClientForm.vue'
 import Modal from '../components/Modal.vue'
 
 const clientStore = useClientStore()
 const { getClients } = clientStore
 const { clients } = storeToRefs(clientStore)
+const router = useRouter()
 
 onMounted(async () => {
-  getClients()
+  try {
+    await getClients()
+  } catch (error: any) {
+    console.error(error.response.status)
+    console.table(error.response.data.detail)
+    if (error.response.status == 403) {
+      // Unvalidate the access token and redirect to login
+      localStorage.removeItem(ACCESS_TOKEN)
+      router.push('/auth/login')
+    } else if (error.response.status == 422) {
+      return
+
+    }
+  }
 })
 
 const clientForm = ref<InstanceType<typeof ClientForm>>()

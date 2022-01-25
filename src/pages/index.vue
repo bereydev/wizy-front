@@ -4,27 +4,41 @@ import { useClientStore } from '~/stores/client'
 import { useEventStore } from '~/stores/event'
 import Modal from '../components/Modal.vue'
 import { storeToRefs } from 'pinia'
+import { ACCESS_TOKEN } from '~/stores/fetch'
 
-const router = useRouter()
 const wizyStarModal = ref<InstanceType<typeof Modal>>()
 const userStore = useUserStore()
 const eventStore = useEventStore()
 const clientStore = useClientStore()
+const router = useRouter()
 
 const { events } = storeToRefs(eventStore)
-const { clients} = storeToRefs(clientStore)
-const {getCurrentUser, isLoggedIn} = userStore
-const {getClients} = clientStore
-const {getEvents} = eventStore 
+const { clients } = storeToRefs(clientStore)
+const { getCurrentUser } = userStore
+const { getClients } = clientStore
+const { getEvents } = eventStore
 
 // if (isLoggedIn()) {
 //   router.push('/auth/login')
 // }
 
 onMounted(async () => {
-  getCurrentUser()
-  getClients()
-  getEvents()
+  try {
+    await getCurrentUser()
+    await getClients()
+    await getEvents()
+  } catch (error: any) {
+    console.error(error.response.status)
+    console.table(error.response.data.detail)
+    if (error.response.status == 403) {
+      // Unvalidate the access token and redirect to login
+      localStorage.removeItem(ACCESS_TOKEN)
+      router.push('/auth/login')
+    } else if (error.response.status == 422) {
+      return
+
+    }
+  }
 })
 
 
@@ -59,7 +73,7 @@ onMounted(async () => {
         <EventCard :event="event" v-for="event in events" :key="event.id"></EventCard>
       </div>
       <div class="text-center justify-center w-full h-full" v-if="clients && !clients.length">
-      <iconoir:add-user class="h-20 w-full text-gray-400" />
+        <iconoir:add-user class="h-20 w-full text-gray-400" />
         <p class="mb-3">Vous n'avez pas encore de clients</p>
         <Button class="w-full">Ajouter un client</Button>
       </div>
