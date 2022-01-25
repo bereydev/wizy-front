@@ -81,7 +81,7 @@ function toggle() {
           </button>
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" id="main-nav" :class="open? 'block':'hidden'">
-      <div v-if="isLoggedIn()"  class="text-sm lg:flex-grow">
+      <div @click="toggle" v-if="isLoggedIn()"  class="text-sm lg:flex-grow">
         <router-link
           class="hover:underline cursor-pointer py-3 mr-5 block lg:inline-block"
           to="/"

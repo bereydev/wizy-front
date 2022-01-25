@@ -68,19 +68,19 @@ onMounted(async () => {
       <div class="bg-blue-200 rounded-xl shadow px-6 py-4 w-full">
         <h2>Séances à venir</h2>
       </div>
-      <div v-if="events && events.length">
-        <Button class="w-full">Ajouter une séance</Button>
-        <EventCard :event="event" v-for="event in events" :key="event.id"></EventCard>
-      </div>
-      <div class="text-center justify-center w-full h-full" v-if="clients && !clients.length">
+      <div v-if="clients && !clients.length" class="text-center justify-center w-full h-full">
         <iconoir:add-user class="h-20 w-full text-gray-400" />
         <p class="mb-3">Vous n'avez pas encore de clients</p>
         <Button class="w-full">Ajouter un client</Button>
       </div>
-      <div v-if="events && !events.length" class="text-center justify-center w-full h-full">
+      <div v-else-if="events && !events.length" class="text-center justify-center w-full h-full">
         <iconoir:calendar class="h-20 w-full text-gray-400" />
         <p class="mb-3">Vous n'avez pas de séances pour le moment</p>
         <Button class="w-full">Ajouter une séance</Button>
+      </div>
+      <div v-else>
+        <Button class="w-full">Ajouter une séance</Button>
+        <EventCard :event="event" v-for="event in events" :key="event.id"></EventCard>
       </div>
     </div>
     <div class="flex flex-col w-1/3 space-y-4">
