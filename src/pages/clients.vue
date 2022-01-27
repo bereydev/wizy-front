@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useClientStore } from '~/stores/client'
 import { useUserStore } from '~/stores/user'
-import ClientForm from '../components/forms/ClientForm.vue'
-import Modal from '../components/Modal.vue'
+import ClientModal from '../components/ClientModal.vue'
 
 const clientStore = useClientStore()
 const userStore = useUserStore()
@@ -26,12 +25,7 @@ onMounted(async () => {
   }
 })
 
-const clientForm = ref<InstanceType<typeof ClientForm>>()
-const modal = ref<InstanceType<typeof Modal>>()
-
-function onSubmit() {
-  clientForm.value?.submitCreate()
-}
+const clientModal = ref<InstanceType<typeof ClientModal>>()
 
 </script>
 
@@ -47,7 +41,7 @@ function onSubmit() {
       />
     </div>
     <div class="flex items-center py-2">
-      <Button @click="modal?.toggle">Ajouter un client</Button>
+      <Button @click="clientModal?.toggle">Ajouter un client</Button>
     </div>
   </div>
   <div class="-my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -88,21 +82,10 @@ function onSubmit() {
     >
     <h1>🥺</h1>
       <h1 class="font-weight-10 mb-5">Votre fichier client est vide</h1>
-      <Button @click="modal?.toggle">🎉 Ajouter votre premier client 🎉</Button>
+      <Button @click="clientModal?.toggle">🎉 Ajouter votre premier client 🎉</Button>
     </div>
   </div>
-  <Modal ref="modal">
-    <template v-slot:title>
-      <h1>Ajouter un nouveau client</h1>
-    </template>
-
-    <ClientForm ref="clientForm"></ClientForm>
-
-    <template v-slot:footer>
-      <Button type="submit" @click="modal?.toggle">Annuler</Button>
-      <Button type="submit" @click="onSubmit(), modal?.toggle()">Enregistrer</Button>
-    </template>
-  </Modal>
+  <ClientModal ref="clientModal"></ClientModal>
 </template>
 
 <route>

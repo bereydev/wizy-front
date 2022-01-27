@@ -4,8 +4,12 @@ import { useClientStore } from '~/stores/client'
 import { useEventStore } from '~/stores/event'
 import Modal from '../components/Modal.vue'
 import { storeToRefs } from 'pinia'
+import ClientModal from '../components/ClientModal.vue'
+import EventModal from '../components/EventModal.vue'
 
 const wizyStarModal = ref<InstanceType<typeof Modal>>()
+const clientModal = ref<InstanceType<typeof ClientModal>>()
+const eventModal = ref<InstanceType<typeof EventModal>>()
 const userStore = useUserStore()
 const eventStore = useEventStore()
 const clientStore = useClientStore()
@@ -66,15 +70,15 @@ onMounted(async () => {
       <div v-if="clients && !clients.length" class="text-center justify-center w-full h-full">
         <iconoir:add-user class="h-20 w-full text-gray-400" />
         <p class="mb-3">Vous n'avez pas encore de clients</p>
-        <Button class="w-full">Ajouter un client</Button>
+        <Button @click="clientModal?.toggle" class="w-full">Ajouter un client</Button>
       </div>
       <div v-else-if="events && !events.length" class="text-center justify-center w-full h-full">
         <iconoir:calendar class="h-20 w-full text-gray-400" />
         <p class="mb-3">Vous n'avez pas de séances pour le moment</p>
-        <Button class="w-full">Ajouter une séance</Button>
+        <Button @click="eventModal?.toggle" class="w-full">Ajouter une séance</Button>
       </div>
       <div v-else>
-        <Button class="w-full">Ajouter une séance</Button>
+        <Button @click="eventModal?.toggle" class="w-full">Ajouter une séance</Button>
         <EventCard :event="event" v-for="event in events" :key="event.id"></EventCard>
       </div>
     </div>
@@ -125,6 +129,8 @@ onMounted(async () => {
       </div>
     </div>
   </div>
+  <EventModal ref="eventModal"></EventModal>
+  <ClientModal ref="clientModal"></ClientModal>
 </template>
 
 <route>
