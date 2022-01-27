@@ -6,20 +6,21 @@ import type { UserModule } from '~/types'
 export const install: UserModule = ({ isClient, initialState, app }) => {
   const pinia = createPinia()
   app.use(pinia)
-  watch(
-    pinia.state,
-    (state) => {
-      // persist the whole state to the local storage whenever it changes
-      localStorage.setItem('wizyState', JSON.stringify(state))
-    },
-    { deep: true }
-  )
   // Refer to
   // https://github.com/antfu/vite-ssg/blob/main/README.md#state-serialization
   // for other serialization strategies.
-  if (isClient)
-    pinia.state.value = JSON.parse(localStorage.getItem('wizyState')) || {};
-
+  if (isClient) {
+    watch(
+      pinia.state,
+      (state) => {
+        // persist the whole state to the local storage whenever it changes
+        localStorage.setItem('wizy-state', JSON.stringify(state))
+      },
+      { deep: true }
+    )
+    const storedState = localStorage.getItem('wizy-state')
+    pinia.state.value = storedState == null ? {}: JSON.parse(storedState);
+  }
   else
     initialState.pinia = pinia.state.value
 }

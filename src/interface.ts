@@ -38,7 +38,7 @@ export interface Client extends BaseData {
     mail: string
     last_name: string
     first_name: string
-    phone: string
+    phones: Array<Phone>
     company: string
     address: string
     address2: string
@@ -51,6 +51,11 @@ export interface Client extends BaseData {
     prospect?: boolean
     inactive?: boolean
     finished?: boolean
+}
+
+interface Phone {
+    label: string,
+    number: string, 
 }
 
 export interface Tool extends BaseData {

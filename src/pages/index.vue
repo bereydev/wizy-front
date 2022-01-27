@@ -4,7 +4,6 @@ import { useClientStore } from '~/stores/client'
 import { useEventStore } from '~/stores/event'
 import Modal from '../components/Modal.vue'
 import { storeToRefs } from 'pinia'
-import { ACCESS_TOKEN } from '~/stores/fetch'
 
 const wizyStarModal = ref<InstanceType<typeof Modal>>()
 const userStore = useUserStore()
@@ -14,13 +13,9 @@ const router = useRouter()
 
 const { events } = storeToRefs(eventStore)
 const { clients } = storeToRefs(clientStore)
-const { getCurrentUser } = userStore
+const { getCurrentUser, logout } = userStore
 const { getClients } = clientStore
 const { getEvents } = eventStore
-
-// if (isLoggedIn()) {
-//   router.push('/auth/login')
-// }
 
 onMounted(async () => {
   try {
@@ -28,11 +23,11 @@ onMounted(async () => {
     await getClients()
     await getEvents()
   } catch (error: any) {
-    console.error(error.response.status)
+    console.error(error.response?.status)
     console.table(error.response.data.detail)
     if (error.response.status == 403) {
       // Unvalidate the access token and redirect to login
-      localStorage.removeItem(ACCESS_TOKEN)
+      logout()
       router.push('/auth/login')
     } else if (error.response.status == 422) {
       return

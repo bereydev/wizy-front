@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useClientStore } from '~/stores/client'
-import { ACCESS_TOKEN } from '~/stores/fetch'
+import { useUserStore } from '~/stores/user'
 import ClientForm from '../components/forms/ClientForm.vue'
 import Modal from '../components/Modal.vue'
 
 const clientStore = useClientStore()
+const userStore = useUserStore()
 const { getClients } = clientStore
+const { logout } = userStore
 const { clients } = storeToRefs(clientStore)
 const router = useRouter()
 
@@ -18,11 +20,10 @@ onMounted(async () => {
     console.table(error.response.data.detail)
     if (error.response.status == 403) {
       // Unvalidate the access token and redirect to login
-      localStorage.removeItem(ACCESS_TOKEN)
+      logout()
       router.push('/auth/login')
     } else if (error.response.status == 422) {
       return
-
     }
   }
 })

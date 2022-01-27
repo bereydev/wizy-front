@@ -1,16 +1,8 @@
 <script setup lang="ts">
 import { useClientStore } from '~/stores/client'
-import { useUserStore } from '~/stores/user'
 
-const router = useRouter()
 const clientStore = useClientStore()
-const userStore = useUserStore()
-const { isLoggedIn } = userStore
 const {getClientByID} = clientStore
-
-if (isLoggedIn()) {
-  router.push('/auth/login')
-}
 
 const props = defineProps<{client_id: string }>()
 
@@ -20,6 +12,7 @@ const client = getClientByID(props.client_id)
 </script>
 
 <template>
+{{client}}
 <header class="flex w-full bg-blue-300">
  Header
 </header>

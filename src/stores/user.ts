@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { User } from "~/interface"
-import fetchAPI, {ACCESS_TOKEN} from "./fetch"
+import fetchAPI from "./fetch"
 import qs from "qs"
 
 export const useUserStore = defineStore('user', () => {
@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', () => {
    * Current named of the user.
    */
   const currentUser = ref<User>()
+  const accessToken = ref("")
 
   // ************** ACTIONS ************** 
   /**
@@ -31,7 +32,8 @@ export const useUserStore = defineStore('user', () => {
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         data: qs.stringify(credentials),
       })
-    localStorage.setItem("access-token", data.access_token)
+    console.log(data)
+    accessToken.value = data.access_token
     await getCurrentUser()
   }
 
@@ -57,7 +59,7 @@ export const useUserStore = defineStore('user', () => {
 
   function logout() {
     currentUser.value = undefined
-    localStorage.setItem(ACCESS_TOKEN, '')
+    accessToken.value = ""
   }
 
   async function getCurrentUser() {
@@ -68,8 +70,7 @@ export const useUserStore = defineStore('user', () => {
   // ************** GETTERS ************** 
 
   function isLoggedIn() {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN)
-    return accessToken && accessToken.length > 0
+    return accessToken.value && accessToken.value.length > 0
   }
 
 
@@ -84,6 +85,7 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     currentUser,
+    accessToken,
     login,
     logout,
     register,

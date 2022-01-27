@@ -12,7 +12,16 @@ const props = withDefaults(defineProps<Props>(), {
         mail: "",
         last_name: "",
         first_name: "",
-        phone: "",
+        phones: [
+            {
+                label: "Numéro fixe",
+                number: "+33 5 6 677 665"
+            },
+            {
+                label: "Numéro mobile",
+                number: "+33 9 6 677 665"
+            }
+        ],
         company: "",
         address: "",
         address2: "",
@@ -29,7 +38,7 @@ const client = reactive(<Client>{
     ...props.client_placeholder
 })
 
-const { mail, last_name, first_name, phone, company, address, address2, city, postcode, state, discount, price, note } = toRefs(client)
+const { mail, last_name, first_name, phones, company, address, address2, city, postcode, state, discount, price, note } = toRefs(client)
 
 async function submitUpdate() {
     updateClient(client)
@@ -41,6 +50,13 @@ defineExpose({
     submitUpdate,
     submitCreate
 })
+
+function addPhoneField() {
+    phones.value.push({
+        label: "Téléphone bureau",
+        number: ""
+    })
+}
 
 
 </script>
@@ -138,17 +154,32 @@ defineExpose({
                 />
             </div>
         </div>
-
-        <label for="phone" class="form-label">Numéro de téléphone</label>
-        <input
-            id="phone"
-            type="tel"
-            placeholder="Numéro de téléphone"
-            class="field"
-            name="phone"
-            access="false"
-            v-model="phone"
-        />
+        <div class="flex items-center space-x-4">
+            <label for="phone" class="form-label w-1/3">Type de numéro</label>
+            <label for="phone" class="form-label w-2/3">Numéro de téléphone</label>
+        </div>
+    {{phones}}
+        <div class="flex items-center space-x-4" v-for="phone, index in phones" :key="index">
+            <input
+                id="label"
+                type="text"
+                placeholder="Type de téléphone"
+                class="field w-1/3"
+                name="phone"
+                access="false"
+                v-model="phone.label"
+            />
+             <input
+                id="phone"
+                type="tel"
+                placeholder="Numéro de téléphone"
+                class="field w-2/3"
+                name="phone"
+                access="false"
+                v-model="phone.number"
+            />
+        </div>
+        <Button class="w-full" type="button" @click="addPhoneField()">Ajouter un numéro de téléphone</Button>
         <div class="flex items-center">
             <div class="w-1/2 mr-4">
                 <label for="price" class="form-label">Tarif</label>
