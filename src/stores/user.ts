@@ -19,9 +19,6 @@ export const useUserStore = defineStore('user', () => {
      * @password
      */
   async function login(username: string, password: string) {
-    // const params = new URLSearchParams();
-    // params.append("username", username);
-    // params.append("password", password);
     const credentials = {
       "username": username,
       "password": password
@@ -51,9 +48,11 @@ export const useUserStore = defineStore('user', () => {
       email: email,
       password: password,
     }
-    const data = await fetchAPI<User>('/users/open', { method: 'post', data: params });
-    currentUser.value = data
-    login(email, password)
+    const newUser = await fetchAPI<User>('/users/open', { method: 'post', data: params });
+    currentUser.value = newUser
+    console.log(email)
+    console.log(password)
+    await login(email, password)
 
   }
 
@@ -75,12 +74,6 @@ export const useUserStore = defineStore('user', () => {
 
 
   // Handle the redirect of the user if he is not logged in
-  const router = useRouter()
-  router.beforeEach((to, from) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-      if (!isLoggedIn()) return '/auth/login'
-    }
-  })
 
 
   return {

@@ -2,7 +2,8 @@
 
 import { useUserStore } from '~/stores/user'
 
-const user = useUserStore()
+const userStore = useUserStore()
+const { register } = userStore
 const router = useRouter()
 
 const lastName = ref("")
@@ -12,8 +13,7 @@ const email = ref("")
 
 async function onSubmit() {
   try {
-    await user.register(email.value, password.value, firstName.value, lastName.value)
-    
+    await register(email.value, password.value, firstName.value, lastName.value)
     router.push("/");
   } catch (error) {
     console.log(error);

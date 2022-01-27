@@ -7,9 +7,8 @@ import Modal from '../components/Modal.vue'
 
 const clientStore = useClientStore()
 const userStore = useUserStore()
-const { getClients } = clientStore
+const { getClients, getClientsInAlphabeticalOrder} = clientStore
 const { logout } = userStore
-const { clients } = storeToRefs(clientStore)
 const router = useRouter()
 
 onMounted(async () => {
@@ -75,7 +74,7 @@ function onSubmit() {
         <!-- BODY start -->
         <tbody class="bg-white">
           <ClientRow
-            v-for="client, index in clients"
+            v-for="client, index in getClientsInAlphabeticalOrder()"
             :client="client"
             :key="client.id"
             :class="[index % 2 == 0 ? 'bg-white' : 'bg-gray-100']"

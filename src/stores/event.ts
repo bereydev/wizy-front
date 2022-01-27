@@ -1,6 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Event } from "~/interface"
 import fetchAPI from './fetch'
+import {addToStore, deleteInStore, updateInStore} from './crud-utils'
 
 export const useEventStore = defineStore('event', () => {
 
@@ -15,6 +16,7 @@ export const useEventStore = defineStore('event', () => {
         const data = await fetchAPI<Array<Event>>('events')
         let eventList = data
 
+        //Convert response content to JS dates
         eventList.forEach(event => {
             event.start = new Date(event.start)
             event.end = new Date(event.end)
@@ -24,8 +26,18 @@ export const useEventStore = defineStore('event', () => {
     }
 
     async function createEvent(event: Event) {
-        const data = await fetchAPI<Event>("events", { method: 'post', data: { ...event } })
-        await getEvents()
+        const newEvent = await fetchAPI<Event>("events", { method: 'post', data: { ...event } })
+        addToStore(events, newEvent)
+    }
+
+    async function updateEvent(event: Event) {
+        const updatedEvent = await fetchAPI<Event>(`events/${event.id}`, { method: 'put', data: { ...event } })
+        updateInStore(events, updatedEvent)
+    }
+
+    async function deleteEvent(eventId: string) {
+        const deletedEvent = await fetchAPI<Event>(`events/${eventId}`, { method: 'delete'})
+        deleteInStore(events, deletedEvent)
     }
 
     // ************** GETTERS ************** 
@@ -34,7 +46,9 @@ export const useEventStore = defineStore('event', () => {
     return {
         events,
         getEvents,
-        createEvent
+        createEvent,
+        updateEvent,
+        deleteEvent
     }
 })
 

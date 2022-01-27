@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { Client } from "~/interface"
 import fetchAPI from './fetch'
-
+import {addToStore, deleteInStore, updateInStore} from './crud-utils'
 
 export const useClientStore = defineStore('client', () => {
 
@@ -14,28 +14,32 @@ export const useClientStore = defineStore('client', () => {
     // ************** ACTIONS ************** 
 
     async function getClients() {
-        const data = await fetchAPI<Array<Client>>('clients/')
-        clients.value = data
+        const clientList = await fetchAPI<Array<Client>>('clients/')
+        clients.value = clientList
     }
 
     async function createClient(client: Client) {
-        const data = await fetchAPI<Array<Client>>('clients/', { method: 'post', data: { ...client } })
-        await getClients()
+        const newClient = await fetchAPI<Client>('clients/', { method: 'post', data: { ...client } })
+        addToStore(clients, newClient)
     }
     async function updateClient(client: Client) {
-        const data = await fetchAPI<Array<Client>>(`clients/${client.id}`, { method: 'put', data: { ...client } })
-        await getClients()
+        const updatedClient = await fetchAPI<Client>(`clients/${client.id}`, { method: 'put', data: { ...client } })
+        updateInStore(clients, updatedClient)
     }
 
     async function deleteClient(clientId: string) {
-        const data = await fetchAPI<Array<Client>>(`clients/${clientId}`, { method: 'delete' })
-        await getClients()
+        const deletedClient = await fetchAPI<Client>(`clients/${clientId}`, { method: 'delete' })
+        deleteInStore(clients, deletedClient)
     }
 
     // ************** GETTERS ************** 
 
     function getClientByID(id: string): Client | undefined {
         return clients.value.find(x => x.id === id);
+    }
+    
+    function getClientsInAlphabeticalOrder(): Array<Client> {
+        return clients.value.sort((a, b) => a.first_name.localeCompare(b.first_name))
     }
 
 
@@ -46,6 +50,7 @@ export const useClientStore = defineStore('client', () => {
         updateClient,
         deleteClient,
         getClientByID,
+        getClientsInAlphabeticalOrder
     }
 })
 
