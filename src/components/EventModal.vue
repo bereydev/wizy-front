@@ -24,3 +24,5 @@ defineExpose({
         </template>
     </Modal>
 </template>
+
+<style src="@vueform/multiselect/themes/default.css"></style>

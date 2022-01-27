@@ -13,7 +13,7 @@ const router = useRouter()
 
 onMounted(async () => {
     try {
-    await getTools
+    await getTools()
   } catch (error: any) {
     console.error(error.response.status)
     console.table(error.response.data.detail)
