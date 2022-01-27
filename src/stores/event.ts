@@ -26,7 +26,7 @@ export const useEventStore = defineStore('event', () => {
     }
 
     async function createEvent(event: Event) {
-        const newEvent = await fetchAPI<Event>("events", { method: 'post', data: { ...event } })
+        const newEvent = await fetchAPI<Event>("events/", { method: 'post', data: { ...event } })
         addToStore(events, newEvent)
     }
 

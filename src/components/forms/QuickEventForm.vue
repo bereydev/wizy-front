@@ -28,6 +28,8 @@ const eventModelStore = useEventModelStore()
 const { clients } = storeToRefs(clientStore)
 const { eventModels } = storeToRefs(eventModelStore)
 const { createEvent } = eventStore
+const {getClients} = clientStore
+const {getEventModels} = eventModelStore
 
 function createClientChoice(client: Client) {
     return {
@@ -55,6 +57,10 @@ async function submitCreate() {
     })
 }
 
+onMounted(async () => {
+    await getClients()
+    await getEventModels()
+})
 defineExpose({
     submitCreate
 })

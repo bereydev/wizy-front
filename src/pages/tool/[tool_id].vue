@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useUserStore } from '~/stores/user';
+import { useToolStore } from '~/stores/tool';
 
-const user = useUserStore()
+const toolStore = useToolStore()
 
 const props = defineProps<{ tool_id: string }>()
 
-const { getToolByID } = user
+const { getToolByID } = toolStore
 
 const tool = getToolByID(props.tool_id)
-console.log(tool)
 
 
 </script>

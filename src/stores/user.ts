@@ -29,7 +29,6 @@ export const useUserStore = defineStore('user', () => {
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         data: qs.stringify(credentials),
       })
-    console.log(data)
     accessToken.value = data.access_token
     await getCurrentUser()
   }
@@ -50,8 +49,6 @@ export const useUserStore = defineStore('user', () => {
     }
     const newUser = await fetchAPI<User>('/users/open', { method: 'post', data: params });
     currentUser.value = newUser
-    console.log(email)
-    console.log(password)
     await login(email, password)
 
   }

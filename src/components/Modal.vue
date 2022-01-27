@@ -5,7 +5,6 @@ function toggle() {
     isOpen.value = !isOpen.value
 }
 defineExpose({
-    isOpen,
     toggle
 })
 </script>

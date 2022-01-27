@@ -13,8 +13,8 @@ export const useEventModelStore = defineStore('event-model', () => {
     // ************** ACTIONS ************** 
 
     async function getEventModels() {
-        const data = await fetchAPI<Array<EventModel>>('event_models')
-        eventModels.value = data
+        const eventModelList = await fetchAPI<Array<EventModel>>('event_models')
+        eventModels.value = eventModelList
     }
 
     // ************** GETTERS ************** 

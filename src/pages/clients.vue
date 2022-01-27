@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { useClientStore } from '~/stores/client'
 import { useUserStore } from '~/stores/user'
 import ClientForm from '../components/forms/ClientForm.vue'
@@ -7,7 +6,7 @@ import Modal from '../components/Modal.vue'
 
 const clientStore = useClientStore()
 const userStore = useUserStore()
-const { getClients, getClientsInAlphabeticalOrder} = clientStore
+const { getClients, getClientsInAlphabeticalOrder } = clientStore
 const { logout } = userStore
 const router = useRouter()
 
@@ -82,6 +81,14 @@ function onSubmit() {
         </tbody>
         <!-- BODY end -->
       </table>
+    </div>
+    <div
+      v-if="!getClientsInAlphabeticalOrder() || getClientsInAlphabeticalOrder().length <= 0"
+      class="w-full flex flex-col justify-center items-center h-100"
+    >
+    <h1>🥺</h1>
+      <h1 class="font-weight-10 mb-5">Votre fichier client est vide</h1>
+      <Button @click="modal?.toggle">🎉 Ajouter votre premier client 🎉</Button>
     </div>
   </div>
   <Modal ref="modal">
