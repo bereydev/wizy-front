@@ -7,14 +7,18 @@ import { useEventStore } from '~/stores/event';
 import { storeToRefs } from 'pinia';
 import { useClientStore } from '~/stores/client';
 
+const showDate = ref(new Date())
+function setShowDate(d) {
+  showDate.value = d;
+}
+
 const createEventModal = ref<InstanceType<typeof EventModal>>()
 const noClientModal = ref<InstanceType<typeof Modal>>()
-const router = useRouter()
 const eventStore = useEventStore()
 const clientStore = useClientStore()
 
 const { events } = storeToRefs(eventStore)
-const {clients } = storeToRefs(clientStore)
+const { clients } = storeToRefs(clientStore)
 
 // function displayTime(date: Date) {
 //   return `${date.getHours()}h${(date.getMinutes()<10?'0':'') + date.getMinutes()}`
@@ -24,7 +28,7 @@ const {clients } = storeToRefs(clientStore)
 
 <template>
   <h1>Calendrier</h1>
-  {{events}}
+  {{ events }}
   <div class="-mb-2 py-2 flex flex-wrap flex-grow justify-between">
     <div class="flex items-center py-2">
       <input
@@ -35,9 +39,12 @@ const {clients } = storeToRefs(clientStore)
       />
     </div>
     <div class="flex items-center py-2">
-      <Button @click="clients && clients.length > 0? createEventModal?.toggle() : noClientModal?.toggle()">Ajouter une séance</Button>
+      <Button
+        @click="clients && clients.length > 0 ? createEventModal?.toggle() : noClientModal?.toggle()"
+      >Ajouter une séance</Button>
     </div>
   </div>
+  <CalendarTable></CalendarTable>
   <EventModal ref="createEventModal"></EventModal>
   <Modal ref="noClientModal">
     <template v-slot:title>
@@ -46,7 +53,10 @@ const {clients } = storeToRefs(clientStore)
     <p>Oups... Votre fichier client est vide 🤷🏼‍♂️</p>
     <p>Avant d'ajouter un évenement ajouter votre premier client 🎉</p>
     <template v-slot:footer>
-      <Button class="w-full" @click="router.push('/clients'), createEventModal?.toggle()">Ajouter mon premier client</Button>
+      <Button
+        class="w-full"
+        @click="noClientModal?.toggle(), createEventModal?.toggle()"
+      >Ajouter mon premier client</Button>
     </template>
   </Modal>
 </template>

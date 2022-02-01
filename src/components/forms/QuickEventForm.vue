@@ -8,7 +8,7 @@ import { storeToRefs } from 'pinia';
 import { useEventModelStore } from '~/stores/event-model';
 
 const startDate = computed(() => new Date(`${startDateString.value} ${startTimeString.value}`));
-const endDate = computed(() => new Date(`${startDateString.value} ${endTimeString.value}`));
+const endDate = computed<Date>(() => new Date(`${startDateString.value} ${endTimeString.value}`));
 const now = new Date()
 function completeZero(value: number) {
     return (value < 10 ? '0' : '') + value
@@ -28,8 +28,8 @@ const eventModelStore = useEventModelStore()
 const { clients } = storeToRefs(clientStore)
 const { eventModels } = storeToRefs(eventModelStore)
 const { createEvent } = eventStore
-const {getClients} = clientStore
-const {getEventModels} = eventModelStore
+const { getClients } = clientStore
+const { getEventModels } = eventModelStore
 
 function createClientChoice(client: Client) {
     return {
@@ -86,12 +86,12 @@ defineExpose({
         </div>
         <div class="w-full">
             <label for="start-time" class="form-label">Début</label>
-            <input type="time" class="field" v-model="startTimeString" step="300"/>
+            <input type="time" class="field" v-model="startTimeString" step="300" />
         </div>
         <IconoirArrowRight class="h-20 w-20" />
         <div class="w-full">
             <label for="end-time" class="form-label">Fin</label>
-            <input type="time" class="field" v-model="endTimeString" step="300"/>
+            <input type="time" class="field" v-model="endTimeString" step="300" />
         </div>
     </div>
     <label for="note" class="form-label">Note</label>
