@@ -62,6 +62,7 @@ function addPhoneField() {
 </script>
 <template>
     <form>
+        <AvatarField></AvatarField>
         <label for="profile-picture" class="form-label">Photo de profile</label>
         <input type="file" class="field" access="false" multiple="false" />
 

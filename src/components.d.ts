@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     AccountDropdown: typeof import('./components/AccountDropdown.vue')['default']
+    AvatarField: typeof import('./components/AvatarField.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
     CalendarTable: typeof import('./components/calendar/CalendarTable.vue')['default']
     CalendarView: typeof import('./components/calendar/CalendarView.vue')['default']
@@ -18,6 +19,7 @@ declare module 'vue' {
     FreeTimeline: typeof import('./components/FreeTimeline.vue')['default']
     'Iconoir:addUser': typeof import('~icons/iconoir/add-user')['default']
     'Iconoir:calendar': typeof import('~icons/iconoir/calendar')['default']
+    'Iconoir:editPencil': typeof import('~icons/iconoir/edit-pencil')['default']
     'Iconoir:menu': typeof import('~icons/iconoir/menu')['default']
     IconoirArrowRight: typeof import('~icons/iconoir/arrow-right')['default']
     'IconParkOutline:close': typeof import('~icons/icon-park-outline/close')['default']
