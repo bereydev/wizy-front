@@ -30,7 +30,6 @@ const { clients } = storeToRefs(clientStore)
 
 <template>
   <h1>Calendrier</h1>
-  {{ events }}
   <div class="-mb-2 py-2 flex flex-wrap flex-grow justify-between">
     <div class="flex items-center py-2">
       <input

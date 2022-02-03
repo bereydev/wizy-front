@@ -55,7 +55,7 @@ const openClient = () => {
             >{{ client.first_name }} {{ client.last_name }}</div>
         </td>
         <td @click="openClient" class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900">{{ client.phone }}</div>
+            <div class="text-sm leading-5 text-gray-900">{{ client.phones[0].number }}</div>
         </td>
         <td @click="openClient" class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
             <div class="text-sm leading-5 text-gray-900">{{ client.mail }}</div>
