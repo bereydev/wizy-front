@@ -2,6 +2,7 @@
 
 import Modal from "../components/Modal.vue"
 import EventModal from "../components/EventModal.vue"
+import ClientModal from "../components/ClientModal.vue"
 
 import { useEventStore } from '~/stores/event';
 import { storeToRefs } from 'pinia';
@@ -13,6 +14,7 @@ function setShowDate(d) {
 }
 
 const createEventModal = ref<InstanceType<typeof EventModal>>()
+const createClientModal = ref<InstanceType<typeof ClientModal>>()
 const noClientModal = ref<InstanceType<typeof Modal>>()
 const eventStore = useEventStore()
 const clientStore = useClientStore()
@@ -46,6 +48,7 @@ const { clients } = storeToRefs(clientStore)
   </div>
   <CalendarTable></CalendarTable>
   <EventModal ref="createEventModal"></EventModal>
+  <ClientModal ref="createClientModal"></ClientModal>
   <Modal ref="noClientModal">
     <template v-slot:title>
       <h1>Pas encore clients ?</h1>
@@ -55,7 +58,7 @@ const { clients } = storeToRefs(clientStore)
     <template v-slot:footer>
       <Button
         class="w-full"
-        @click="noClientModal?.toggle(), createEventModal?.toggle()"
+        @click="noClientModal?.toggle(), createClientModal?.toggle()"
       >Ajouter mon premier client</Button>
     </template>
   </Modal>

@@ -63,9 +63,6 @@ function addPhoneField() {
 <template>
     <form>
         <AvatarField></AvatarField>
-        <label for="profile-picture" class="form-label">Photo de profile</label>
-        <input type="file" class="field" access="false" multiple="false" />
-
         <label for="email-address" class="form-label">Adresse email</label>
         <input type="email" placeholder="Adresse email" class="field" access="false" v-model="mail" />
 

@@ -28,6 +28,7 @@ declare module 'vue' {
     Modal: typeof import('./components/Modal.vue')['default']
     Navbar: typeof import('./components/Navbar.vue')['default']
     QuickEventForm: typeof import('./components/forms/QuickEventForm.vue')['default']
+    RangeField: typeof import('./components/RangeField.vue')['default']
     README: typeof import('./components/README.md')['default']
     RegisterForm: typeof import('./components/forms/RegisterForm.vue')['default']
     SelectField: typeof import('./components/forms/SelectField.vue')['default']

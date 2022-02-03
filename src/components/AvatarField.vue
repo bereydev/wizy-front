@@ -1,12 +1,11 @@
 <script setup lang="ts">
-const image = ref('https://www.dmarge.com/cdn-cgi/image/width=1200,quality=85,fit=scale-down,format=auto/https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg')
+const image = ref<string | ArrayBuffer | null | undefined>('https://www.dmarge.com/cdn-cgi/image/width=1200,quality=85,fit=scale-down,format=auto/https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg')
 
 const filePreview = ref(null)
 function changeImage(event) {
-    console.log(event.target.files[0])
     const reader = new FileReader()
     reader.onload = function(e) {
-        image.value = e.target.result
+        image.value = e.target?.result
     }
     reader.readAsDataURL(event.target.files[0])
 }
@@ -29,7 +28,6 @@ function changeImage(event) {
 .avatar-upload {
     position: relative;
     max-width: 205px;
-    margin: 50px auto;
     .avatar-edit {
         position: absolute;
         right: 5px;
