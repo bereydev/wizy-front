@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { useClientStore } from '~/stores/client';
+import { Field, Form, ErrorMessage } from 'vee-validate';
 import type { Client } from "~/interface"
 interface Props {
     client_placeholder?: Client;
 }
 const clientStore = useClientStore()
 const { createClient, updateClient } = clientStore
+
+function isRequired(value) {
+    if (value && value.trim()) {
+        return true;
+    }
+    return 'This is required';
+}
 
 const props = withDefaults(defineProps<Props>(), {
     client_placeholder: () => <Client>{
@@ -14,13 +22,9 @@ const props = withDefaults(defineProps<Props>(), {
         first_name: "",
         phones: [
             {
-                label: "Numéro fixe",
-                number: "+33 5 6 677 665"
+                label: "Téléphone",
+                number: ""
             },
-            {
-                label: "Numéro mobile",
-                number: "+33 9 6 677 665"
-            }
         ],
         company: "",
         address: "",
@@ -58,16 +62,30 @@ function addPhoneField() {
     })
 }
 
+function removePhoneField(index) {
+    phones.value.splice(index, 1)
+}
+
 
 </script>
 <template>
-    <form>
-        <AvatarField></AvatarField>
-        <label for="email-address" class="form-label">Adresse email</label>
-        <input type="email" placeholder="Adresse email" class="field" access="false" v-model="mail" />
-
+    <Form>
+        <Field name="field" :rules="isRequired"></Field>
+        <ErrorMessage name="field" />
+        <h2 class="mb-2">Informations de contact</h2>
         <div class="flex items-center">
-            <div class="w-1/2 mr-4">
+            <div class="w-1/3 mr-4">
+                <AvatarField></AvatarField>
+            </div>
+            <div class="w-2/3">
+                <label for="last-name" class="form-label">Nom de famille</label>
+                <input
+                    type="text"
+                    placeholder="Nom de famille"
+                    class="field"
+                    access="false"
+                    v-model="last_name"
+                />
                 <label for="first-name" class="form-label">Prénom</label>
                 <input
                     id="first-name"
@@ -79,21 +97,37 @@ function addPhoneField() {
                     v-model="first_name"
                 />
             </div>
-            <div class="w-1/2">
-                <label for="last-name" class="form-label">Nom de famille</label>
-                <input
-                    type="text"
-                    placeholder="Nom de famille"
-                    class="field"
-                    access="false"
-                    v-model="last_name"
-                />
-            </div>
         </div>
-        <label for="company" class="form-label">Entreprise</label>
-        <input type="text" placeholder="Entreprise" class="field" access="false" v-model="company" />
+        <label for="email-address" class="form-label">Adresse email</label>
+        <input type="email" placeholder="Adresse email" class="field" access="false" v-model="mail" />
 
-        <label for="address" class="form-label">Adresse</label>
+        <label for="phone" class="form-label">Numéro(s) de téléphone</label>
+        <div class="flex items-center space-x-4" v-for="phone, index in phones" :key="index">
+            <input
+                id="label"
+                type="text"
+                placeholder="Type de téléphone"
+                class="w-1/3"
+                name="phone"
+                access="false"
+                v-model="phone.label"
+            />
+            <input
+                id="phone"
+                type="tel"
+                placeholder="Numéro de téléphone"
+                class="w-2/3"
+                name="phone"
+                access="false"
+                v-model="phone.number"
+            />
+            <iconoir:trash
+                @click="removePhoneField(index)"
+                class="cursor-pointer text-red-500 my-auto"
+            ></iconoir:trash>
+        </div>
+        <Button class="w-full" type="button" @click="addPhoneField()">Ajouter un numéro de téléphone</Button>
+        <h2 class="mt-3">Adresse</h2>
         <input
             id="address"
             type="text"
@@ -103,8 +137,6 @@ function addPhoneField() {
             access="false"
             v-model="address"
         />
-
-        <label for="address2" class="form-label">Complément d'adresse</label>
         <input
             id="address2"
             type="text"
@@ -115,20 +147,8 @@ function addPhoneField() {
             v-model="address2"
         />
 
-        <label for="state" class="form-label">Pays</label>
-        <input
-            id="state"
-            type="text"
-            placeholder="Pays"
-            class="field"
-            name="state"
-            access="false"
-            v-model="state"
-        />
-
         <div class="flex items-center">
             <div class="w-1/2 mr-4">
-                <label for="city" class="form-label">Ville</label>
                 <input
                     id="city"
                     type="text"
@@ -140,7 +160,6 @@ function addPhoneField() {
                 />
             </div>
             <div class="w-1/2">
-                <label for="postcode" class="form-label">Code postal</label>
                 <input
                     id="postcode"
                     type="text"
@@ -152,32 +171,25 @@ function addPhoneField() {
                 />
             </div>
         </div>
-        <div class="flex items-center space-x-4">
-            <label for="phone" class="form-label w-1/3">Type de numéro</label>
-            <label for="phone" class="form-label w-2/3">Numéro de téléphone</label>
+
+        <div class="flex items-center">
+            <div class="w-1/2 mr-4">
+                <input
+                    id="state"
+                    type="text"
+                    placeholder="Pays"
+                    class="field"
+                    name="state"
+                    access="false"
+                    v-model="state"
+                />
+            </div>
+            <div class="w-1/2"></div>
         </div>
-    {{phones}}
-        <div class="flex items-center space-x-4" v-for="phone, index in phones" :key="index">
-            <input
-                id="label"
-                type="text"
-                placeholder="Type de téléphone"
-                class="field w-1/3"
-                name="phone"
-                access="false"
-                v-model="phone.label"
-            />
-             <input
-                id="phone"
-                type="tel"
-                placeholder="Numéro de téléphone"
-                class="field w-2/3"
-                name="phone"
-                access="false"
-                v-model="phone.number"
-            />
-        </div>
-        <Button class="w-full" type="button" @click="addPhoneField()">Ajouter un numéro de téléphone</Button>
+
+        <h2>Comptabilité</h2>
+        <label for="pdf-contract" class="form-label">PDF contract client</label>
+        <input type="file" class="field" access="false" multiple="false" />
         <div class="flex items-center">
             <div class="w-1/2 mr-4">
                 <label for="price" class="form-label">Tarif</label>
@@ -197,17 +209,7 @@ function addPhoneField() {
             </div>
         </div>
 
-        <label for="pdf-contract" class="form-label">PDF contract client</label>
-        <input type="file" class="field" access="false" multiple="false" />
-
-        <label for="note" class="form-label">Note</label>
-        <textarea
-            type="textarea"
-            placeholder="Note"
-            class="field"
-            access="false"
-            rows="4"
-            v-model="note"
-        />
-    </form>
+        <h2>Note</h2>
+        <textarea type="textarea" placeholder="Note" class access="false" rows="4" v-model="note" />
+    </Form>
 </template>

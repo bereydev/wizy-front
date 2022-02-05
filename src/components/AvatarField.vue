@@ -27,18 +27,18 @@ function changeImage(event) {
 <style scoped lang="less">
 .avatar-upload {
     position: relative;
-    max-width: 205px;
+    max-width: 150px;
     .avatar-edit {
         position: absolute;
-        right: 5px;
+        right: 0;
         z-index: 1;
-        bottom: 5px;
+        bottom: 0;
         input {
             display: none;
             + label {
                 display: inline-block;
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 margin-bottom: 0;
                 border-radius: 100%;
                 background: #FFFFFF;
@@ -56,7 +56,7 @@ function changeImage(event) {
                     font-family: 'FontAwesome';
                     color: #757575;
                     position: absolute;
-                    top: 15px;
+                    top: 10px;
                     left: 0;
                     right: 0;
                     text-align: center;
@@ -66,8 +66,8 @@ function changeImage(event) {
         }
     }
     .avatar-preview {
-        width: 192px;
-        height: 192px;
+        width: 150px;
+        height: 150px;
         position: relative;
         border-radius: 100%;
         border: 6px solid #F8F8F8;

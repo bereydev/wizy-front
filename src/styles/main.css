@@ -30,12 +30,15 @@ nav {
   @apply sticky top-0 z-50 bg-white;
 }
 
-.field {
-  @apply mb-4 py-2 px-4 appearance-none border-2 block w-full bg-gray-200 placeholder-gray-700 rounded focus:outline-none focus:bg-white focus:border-blue-700;
+input{
+  @apply py-2 px-4 mb-2 appearance-none border-2 block w-full border-gray-200 bg-white placeholder-gray-700 rounded focus:outline-none hover:border-indigo-400 hover:bg-indigo-100 focus:bg-white focus:border-indigo-700;
+}
+textarea{
+  @apply py-2 px-4 mb-2 appearance-none border-2 block w-full border-gray-200 bg-white placeholder-gray-700 rounded focus:outline-none hover:border-indigo-400 hover:bg-indigo-100 focus:bg-white focus:border-indigo-700;
 }
 
-.form-label {
-  @apply font-semibold text-sm;
+label {
+  @apply font-semibold text-sm; 
 }
 
 .nav-item {
@@ -59,7 +62,7 @@ h1 {
 }
 
 h2 {
-  @apply text-xl leading-tight font-semibold text-gray-700;
+  @apply text-xl leading-tight font-semibold text-gray-600;
 }
 
 h3 {
