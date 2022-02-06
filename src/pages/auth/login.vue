@@ -10,8 +10,11 @@ const { login } = userStore
 
 // Define a validation schema
 const schema = yup.object({
-  username: yup.string().required("Champ obligatoir").email("Votre nom d'utilisateur doit être une addresse mail valide"),
-  password: yup.string().required("Champ obligatoir").min(8, "Votre mot de passe doit avoir au moins 8 charactères"),
+  username: yup.string().required("Champ obligatoire").email("Votre nom d'utilisateur doit être une addresse e-mail valide"),
+  password: yup.string().required("Champ obligatoire").min(8, "Votre mot de passe doit avoir au moins 8 charactères").matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+    "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un nombre"
+  )
 });
 
 async function onSubmit(values) {
@@ -47,11 +50,11 @@ async function onSubmit(values) {
     class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-4"
   >
     <div class="w-full mb-2">
-      <Field name="username" type="email" />
+      <Field name="username" type="email" autocomplete="username" />
       <ErrorMessage class="error" name="username" />
     </div>
     <div class="w-full mb-2">
-      <Field name="password" type="password" />
+      <Field name="password" type="password" autocomplete="current-password" />
       <ErrorMessage class="error" name="password" />
     </div>
 

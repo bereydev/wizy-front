@@ -1,19 +1,26 @@
 <script setup lang="ts">
-
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
 import { useUserStore } from '~/stores/user'
 
 const userStore = useUserStore()
 const { register } = userStore
 const router = useRouter()
 
-const lastName = ref("")
-const firstName = ref("")
-const password = ref("")
-const email = ref("")
+const schema = yup.object({
+  firstName: yup.string().required("Champ obligatoire"),
+  lastName: yup.string().required("Champ obligatoire"),
+  username: yup.string().required("Champ obligatoire").email("Votre nom d'utilisateur doit être une addresse e-mail valide"),
+  password: yup.string().required("Champ obligatoire").min(8, "Votre mot de passe doit avoir au moins 8 charactères").matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+    "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un nombre"
+  ),
+  repeatPassword: yup.string().required("Champ obligatoire").oneOf([yup.ref('password'), null], 'Vos mot de passes sont différent')
+});
 
-async function onSubmit() {
+async function onSubmit(values) {
   try {
-    await register(email.value, password.value, firstName.value, lastName.value)
+    await register(values.username, values.password, values.firstName, values.lastName)
     router.push("/");
   } catch (error) {
     console.log(error);
@@ -30,46 +37,38 @@ async function onSubmit() {
     >Bienvenu chez WizyTime le premier CRM français dédié aux coachs</p>
   </div>
   <form @submit.prevent="onSubmit" class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6">
-    <input
-      class="field"
-      required
-      v-model="firstName"
-      placeholder="Prénom"
-      type="text"
-      autocomplete="given-name"
-    />
-    <input
-      class="field"
-      required
-      v-model="lastName"
-      placeholder="Nom de famille"
-      type="text"
-      autocomplete="family-name"
-    />
-    <input
-      class="field"
-      type="text"
-      required
-      v-model="email"
-      placeholder="Adresse e-mail"
-      autocomplete="username"
-    />
-    <input
-      class="field"
-      placeholder="Mot de passe"
-      required
-      v-model="password"
-      type="password"
-      autocomplete="new-password"
-    />
-    <input
-      class="field"
-      placeholder="Répéter le mot de passe"
-      required
-      type="password"
-      autocomplete="new-password"
-    />
-
+    <Form @submit="onSubmit" :validation-schema="schema">
+      <div class="w-full mb-2">
+        <Field name="firstName" type="text" autocomplete="given-name" placeholder="Prénom" />
+        <ErrorMessage class="error" name="firstName" />
+      </div>
+      <div class="w-full mb-2">
+        <Field name="lastName" type="text" autocomplete="family-name" placeholder="Nom de famille" />
+        <ErrorMessage class="error" name="lastName" />
+      </div>
+      <div class="w-full mb-2">
+        <Field name="username" type="email" autocomplete="username" placeholder="Adresse e-mail" />
+        <ErrorMessage class="error" name="username" />
+      </div>
+      <div class="w-full mb-2">
+        <Field
+          name="password"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Mot de passe"
+        />
+        <ErrorMessage class="error" name="password" />
+      </div>
+      <div class="w-full mb-2">
+        <Field
+          name="repeatPassword"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Répéter le mot de passe"
+        />
+        <ErrorMessage class="error" name="repeatPassword" />
+      </div>
+    </Form>
     <button
       class="ml-auto w-full bg-gray-800 text-white p-2 rounded font-semibold hover:bg-gray-900"
       type="submit"
