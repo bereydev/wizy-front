@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useClientStore } from '~/stores/client';
 import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup'
 import type { Client } from "~/interface"
 interface Props {
     client_placeholder?: Client;
@@ -14,6 +15,21 @@ function isRequired(value) {
     }
     return 'This is required';
 }
+
+const schema = yup.object({
+    mail: yup.string(),
+    lastName: yup.string(),
+    first_name: yup.string(),
+    company: yup.string(),
+    address: yup.string(),
+    address2: yup.string(),
+    city: yup.string(),
+    postcode: yup.string(),
+    state: yup.string(),
+    discount: yup.number().max(100).min(0).required(),
+    price: yup.number().min(0).required(),
+    note: yup.string()
+});
 
 const props = withDefaults(defineProps<Props>(), {
     client_placeholder: () => <Client>{
@@ -44,11 +60,11 @@ const client = reactive(<Client>{
 
 const { mail, last_name, first_name, phones, company, address, address2, city, postcode, state, discount, price, note } = toRefs(client)
 
-async function submitUpdate() {
-    updateClient(client)
+async function submitUpdate(values) {
+    updateClient(values)
 }
-async function submitCreate() {
-    createClient(client)
+async function submitCreate(values) {
+    createClient(values)
 }
 defineExpose({
     submitUpdate,
@@ -70,8 +86,11 @@ function removePhoneField(index) {
 </script>
 <template>
     <Form>
-        <Field name="field" :rules="isRequired"></Field>
-        <ErrorMessage name="field" />
+        <div class="mb-2 w-full">
+            <Field name="firstName" :validate-schema="schema"></Field>
+            <ErrorMessage name="firstName" />
+        </div>
+
         <h2 class="mb-2">Informations de contact</h2>
         <div class="flex items-center">
             <div class="w-1/3 mr-4">

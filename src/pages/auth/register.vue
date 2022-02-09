@@ -36,8 +36,7 @@ async function onSubmit(values) {
       class="w-10/12 font-semibold text-gray-600 text-sm"
     >Bienvenu chez WizyTime le premier CRM français dédié aux coachs</p>
   </div>
-  <form @submit.prevent="onSubmit" class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6">
-    <Form @submit="onSubmit" :validation-schema="schema">
+    <Form @submit="onSubmit" :validation-schema="schema" class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6">
       <div class="w-full mb-2">
         <Field name="firstName" type="text" autocomplete="given-name" placeholder="Prénom" />
         <ErrorMessage class="error" name="firstName" />
@@ -68,19 +67,14 @@ async function onSubmit(values) {
         />
         <ErrorMessage class="error" name="repeatPassword" />
       </div>
+      <Button type="submit" class="w-full">S'inscrire</Button>
     </Form>
-    <button
-      class="ml-auto w-full bg-gray-800 text-white p-2 rounded font-semibold hover:bg-gray-900"
-      type="submit"
-    >S'inscrire</button>
-
     <div class="text-right w-full mt-4">
       <router-link
         class="text-sm font-bold text-teal-500 hover:underline cursor-pointer"
         to="/auth/login"
       >Vous avez déjà un compte ?</router-link>
     </div>
-  </form>
 </template>
 
 <route lang="yaml">
