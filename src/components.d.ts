@@ -10,7 +10,6 @@ declare module 'vue' {
     CalendarTable: typeof import('./components/calendar/CalendarTable.vue')['default']
     CalendarView: typeof import('./components/calendar/CalendarView.vue')['default']
     CalendarViewHeader: typeof import('./components/calendar/CalendarViewHeader.vue')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     ClientForm: typeof import('./components/forms/ClientForm.vue')['default']
     ClientModal: typeof import('./components/ClientModal.vue')['default']
     ClientRow: typeof import('./components/ClientRow.vue')['default']
