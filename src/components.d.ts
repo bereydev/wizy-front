@@ -20,7 +20,6 @@ declare module 'vue' {
     'Iconoir:addUser': typeof import('~icons/iconoir/add-user')['default']
     'Iconoir:calendar': typeof import('~icons/iconoir/calendar')['default']
     'Iconoir:menu': typeof import('~icons/iconoir/menu')['default']
-    'Iconoir:trash': typeof import('~icons/iconoir/trash')['default']
     IconoirArrowRight: typeof import('~icons/iconoir/arrow-right')['default']
     'IconParkOutline:close': typeof import('~icons/icon-park-outline/close')['default']
     LoginForm: typeof import('./components/forms/LoginForm.vue')['default']

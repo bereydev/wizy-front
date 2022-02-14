@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useClientStore } from '~/stores/client';
-import { Field, Form, ErrorMessage, useForm, useField, useFormValues } from 'vee-validate';
+import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup'
 import type { Client } from "~/interface"
 interface Props {
@@ -62,13 +62,16 @@ const { handleSubmit } = useForm({
 })
 
 const { value: mail, errorMessage: mailError } = useField<string>('mail')
-const { value: first_name, errorMessage: firstNameError } = useField<string>('mail')
-const { value: last_name, errorMessage: lastNameError } = useField<string>('mail')
-const { value: address, errorMessage: addressError } = useField<string>('mail')
-const { value: address2, errorMessage: address2Error } = useField<string>('mail')
-const { value: city, errorMessage: cityError } = useField<string>('mail')
-const { value: postcode, errorMessage: postcodeError } = useField<string>('mail')
-const { value: state, errorMessage: stateError } = useField<string>('mail')
+const { value: first_name, errorMessage: firstNameError } = useField<string>('first_name')
+const { value: last_name, errorMessage: lastNameError } = useField<string>('last_name')
+const { value: address, errorMessage: addressError } = useField<string>('address')
+const { value: address2, errorMessage: address2Error } = useField<string>('address2')
+const { value: city, errorMessage: cityError } = useField<string>('city')
+const { value: postcode, errorMessage: postcodeError } = useField<string>('postcode')
+const { value: state, errorMessage: stateError } = useField<string>('state')
+const { value: price, errorMessage: priceError } = useField<string>('price')
+const { value: discount, errorMessage: discountError } = useField<string>('discount')
+const { value: note, errorMessage: noteError } = useField<string>('note')
 
 async function submitUpdate() {
     updateClient(values.value)
@@ -115,8 +118,13 @@ defineExpose({
 
                 <div class="mb-2 w-full">
                     <label for="first_name">Prénom</label>
-                    <Field id="first_name" name="first_name" placeholder="Prénom"></Field>
-                    <ErrorMessage name="first_name" />
+                    <input
+                        id="first_name"
+                        name="first_name"
+                        placeholder="Prénom"
+                        v-model="first_name"
+                    />
+                    <span class="error">{{ firstNameError }}</span>
                 </div>
             </div>
         </div>
@@ -153,28 +161,28 @@ defineExpose({
         <Button class="w-full" type="button" @click="addPhoneField()">Ajouter un numéro de téléphone</Button>-->
         <h3 class="mb-2 px-2 py-1 rounded bg-gray-500 text-white">Adresse</h3>
         <div class="mb-2 w-full">
-            <Field id="address" name="address" placeholder="Adresse"></Field>
-            <ErrorMessage name="address" />
+            <input name="address" placeholder="Adresse" v-model="address" />
+            <span class="error">{{ addressError }}</span>
         </div>
         <div class="mb-2 w-full">
-            <Field id="address2" name="address2" placeholder="Complément d'adresse"></Field>
-            <ErrorMessage name="address2" />
+            <input name="address2" placeholder="Complément d'adresse" v-model="address2" />
+            <span class="error">{{ address2Error }}</span>
         </div>
         <div class="flex items-center">
             <div class="mb-2 w-1/2 mr-4">
-                <Field id="city" name="city" placeholder="Ville"></Field>
-                <ErrorMessage name="city" />
+                <input id="city" name="city" placeholder="Ville" v-model="city" />
+                <span class="error">{{ cityError }}</span>
             </div>
             <div class="mb-2 w-1/2">
-                <Field id="postcode" name="postcode" placeholder="Code postal"></Field>
-                <ErrorMessage name="postcode" />
+                <input id="postcode" name="postcode" placeholder="Code postal" v-model="postcode" />
+                <span class="error">{{ postcodeError }}</span>
             </div>
         </div>
 
         <div class="flex items-center">
             <div class="mb-2 w-1/2 mr-4">
-                <Field id="state" name="state" placeholder="Pays"></Field>
-                <ErrorMessage name="state" />
+                <input id="state" name="state" placeholder="Pays" v-model="state" />
+                <span class="error">{{ stateError }}</span>
             </div>
 
             <div class="w-1/2"></div>
@@ -186,12 +194,20 @@ defineExpose({
         <div class="flex items-center">
             <div class="mb-2 w-1/2 mr-4">
                 <label for="price">Tarif</label>
-                <Field type="number" min="0" step="1" id="price" name="price" placeholder="Tarif"></Field>
-                <ErrorMessage name="price" />
+                <input
+                    id="price"
+                    name="price"
+                    placeholder="Tarif"
+                    type="number"
+                    min="0"
+                    step="1"
+                    v-model="price"
+                />
+                <span class="error">{{ priceError }}</span>
             </div>
             <div class="mb-2 w-1/2">
                 <label for="discount">Taux de remise</label>
-                <Field
+                <input
                     type="number"
                     min="0"
                     max="100"
@@ -199,21 +215,22 @@ defineExpose({
                     id="discount"
                     name="discount"
                     placeholder="Taux de remise"
-                ></Field>
-                <ErrorMessage name="discount" />
+                    v-model="discount"
+                />
+                <span class="error">{{ discountError }}</span>
             </div>
         </div>
 
         <h3 class="mb-2 px-2 py-1 rounded bg-gray-500 text-white">Note</h3>
         <div class="mb-2 w-full">
-            <Field
-                id="state"
-                name="state"
+            <textarea
+                id="note"
+                name="note"
                 placeholder="Saisisser un note à propos de ce client"
-                as="textarea"
+                v-model="note"
                 rows="4"
-            ></Field>
-            <ErrorMessage name="state" />
+            />
+            <span class="error">{{ noteError }}</span>
         </div>
     </form>
 </template>
