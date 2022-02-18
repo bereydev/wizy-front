@@ -70,9 +70,9 @@ function toggle() {
     </div>
   </nav>-->
 
-  <nav class="flex items-center justify-between flex-wrap p-6">
+  <nav class="flex items-center justify-between flex-wrap p-6 w-full">
     <div class="flex items-center flex-shrink-0 mr-6">
-      <object data="/favicon.svg" width="50"></object>
+      <object data="/favicon.svg" width="50" height="50"></object>
       <span class="text-2xl font-semibold">WizyTime</span>
     </div>
     <div class="block lg:hidden">

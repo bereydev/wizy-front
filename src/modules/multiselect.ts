@@ -1,4 +1,4 @@
-import { UserModule } from '~/types'
+import type { UserModule } from '~/types'
 import Multiselect from '@vueform/multiselect'
 
 export const install: UserModule = ({ app }) => {

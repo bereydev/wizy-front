@@ -73,7 +73,8 @@ defineExpose({
             <Multiselect v-model="client" :searchable="true" :options="clientOptions" />
         </div>
     </div>
-    <RangeField ref="rangeField"></RangeField>
+    <!-- <RangeField ref="rangeField"></RangeField> -->
+    
     <label for="note" class="form-label">Note</label>
     <textarea class="w-full field" rows="9"></textarea>
 </template>
