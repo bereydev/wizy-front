@@ -11,7 +11,7 @@ const schema = yup.object({
   username: yup.string().required("Champ obligatoire").email("Votre nom d'utilisateur doit être une addresse e-mail valide"),
   password: yup.string().required("Champ obligatoire").min(8, "Votre mot de passe doit avoir au moins 8 charactères").matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
-    "Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un nombre"
+    "Your password should contain at least one letter, one capital letter and a number"
   )
 });
 
@@ -50,29 +50,31 @@ const onSubmit = handleSubmit(values => {
   </div>
   <va-form
     class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-4"
+    ref="form"
     tag="form"
     @submit.prevent="onSubmit"
   >
     <va-input
       v-model="username"
-      label="Adresse e-mail"
+      label="Email address"
       type="email"
       name="username"
       autocomplete="username"
       :error-messages="usernameError"
+      :rules="[value => value === 'Ben' || 'Should be Ben']"
     />
 
     <va-input
       class="mt-2"
       v-model="password"
       type="password"
-      label="Mot de passe"
+      label="Password"
       name="password"
       autocomplete="current-password"
       :error-messages="passwordError"
     />
 
-    <va-button type="submit" class="mt-2 w-full">Se connecter</va-button>
+    <va-button type="submit" class="mt-2 w-full">Log in</va-button>
   </va-form>
 </template>
 
