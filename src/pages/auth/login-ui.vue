@@ -7,18 +7,22 @@ const userStore = useUserStore()
 const router = useRouter()
 const { login } = userStore
 
-const schema = yup.object({
-  username: yup.string().required("Champ obligatoire").email("Votre nom d'utilisateur doit être une addresse e-mail valide"),
-  password: yup.string().required("Champ obligatoire").min(8, "Votre mot de passe doit avoir au moins 8 charactères").matches(
+// const schema = yup.object({
+//   username: yup.string().required("Champ obligatoire").email("Votre nom d'utilisateur doit être une addresse e-mail valide"),
+//   password: yup.string().required("Champ obligatoire").min(8, "Votre mot de passe doit avoir au moins 8 charactères").matches(
+//     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+//     "Your password should contain at least one letter, one capital letter and a number"
+//   )
+// });
+
+// const { handleSubmit } = useForm({ validationSchema: schema })
+const { handleSubmit } = useForm()
+
+const { value: username, errorMessage: usernameError } = useField('username', yup.string().required("Champ obligatoire").email("Votre nom d'utilisateur doit être une addresse e-mail valide"))
+const { value: password, errorMessage: passwordError } = useField('password', yup.string().required("Champ obligatoire").min(8, "Votre mot de passe doit avoir au moins 8 charactères").matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
     "Your password should contain at least one letter, one capital letter and a number"
-  )
-});
-
-const { handleSubmit } = useForm({ validationSchema: schema })
-
-const { value: username, errorMessage: usernameError } = useField('username')
-const { value: password, errorMessage: passwordError } = useField('password')
+  ))
 
 async function handleLogin(values) {
   try {
@@ -61,7 +65,7 @@ const onSubmit = handleSubmit(values => {
       name="username"
       autocomplete="username"
       :error-messages="usernameError"
-      :rules="[value => value === 'Ben' || 'Should be Ben']"
+      :rules="[value => (value && value.length > 0) || 'Field is required']"
     />
 
     <va-input
