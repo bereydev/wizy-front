@@ -77,7 +77,7 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
       </table>
     </div>
     <div
-      v-if="!getClientsInAlphabeticalOrder() || getClientsInAlphabeticalOrder().length <= 0"
+      v-if="getClientsInAlphabeticalOrder()?.length <= 0"
       class="w-full flex flex-col justify-center items-center h-100"
     >
     <h1>🥺</h1>

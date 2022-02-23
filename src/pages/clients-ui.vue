@@ -1,61 +1,47 @@
 <script setup lang="ts">
+import { useClientStore } from '~/stores/client'
+import { useUserStore } from '~/stores/user'
+import { Client } from '~/interface'
+import ClientModal from '../components/ClientModal.vue'
 
-const items = [
-    {
-        id: 1,
-        name: 'Leanne Graham',
-        username: 'Bret',
-        email: 'Sincere@april.biz',
-        phone: '1-770-736-8031 x56442',
-        website: 'hildegard.org',
-    },
-    {
-        id: 2,
-        name: 'Ervin Howell',
-        username: 'Antonette',
-        email: 'Shanna@melissa.tv',
-        phone: '010-692-6593 x09125',
-        website: 'anastasia.net',
-    },
-    {
-        id: 3,
-        name: 'Clementine Bauch',
-        username: 'Samantha',
-        email: 'Nathan@yesenia.net',
-        phone: '1-463-123-4447',
-        website: 'ramiro.info',
-    },
-    {
-        id: 4,
-        name: 'Patricia Lebsack',
-        username: 'Karianne',
-        email: 'Julianne.OConner@kory.org',
-        phone: '493-170-9623 x156',
-        website: 'kale.biz',
-    },
-    {
-        id: 5,
-        name: 'Chelsey Dietrich',
-        username: 'Kamren',
-        email: 'Lucio_Hettinger@annie.ca',
-        phone: '(254)954-1289',
-        website: 'demarco.info',
-    },
-]
+const clientStore = useClientStore()
+const userStore = useUserStore()
+const { getClients, getClientsInAlphabeticalOrder } = clientStore
+const { logout } = userStore
+const router = useRouter()
+
+onMounted(async () => {
+    try {
+        await getClients()
+    } catch (error: any) {
+        console.error(error.response.status)
+        console.table(error.response.data.detail)
+        if (error.response.status == 403) {
+            // Unvalidate the access token and redirect to login
+            logout()
+            router.push('/auth/login')
+        } else if (error.response.status == 422) {
+            return
+        }
+    }
+})
+
+const clients = ref<Array<Client>>(getClientsInAlphabeticalOrder())
+
+const clientModal = ref<InstanceType<typeof ClientModal>>()
 
 const columns = [
-    { key: 'id', sortable: true },
-    { key: 'username', sortable: true },
-    { key: 'name', sortable: true },
-    { key: 'email', sortable: true },
-    { key: 'phone' },
+    { key: 'first_name', sortable: true },
+    { key: 'mail', sortable: true },
+    { key: 'address', sortable: true },
+    { key: 'company' },
 ]
 
 const filter = ref('')
 
 const useCustomFilteringFn = ref(false)
 
-const filteredCount = ref(items.length)
+const filteredCount = ref(clients.value.length)
 
 const customFilteringFn = computed(() => useCustomFilteringFn.value ? filterExact : undefined)
 
@@ -80,13 +66,20 @@ function filterExact(source) {
     </div>
 
     <va-data-table
-    class="shadow"
-        :items="items"
+        :items="clients"
         :columns="columns"
         :filter="filter"
         :filter-method="customFilteringFn"
         @filtered="filteredCount = $event.items.length"
     />
+    <div
+        v-if="getClientsInAlphabeticalOrder().length <= 0"
+        class="w-full flex flex-col justify-center items-center h-100"
+    >
+        <h1>🥺</h1>
+        <h1 class="font-weight-10 mb-5">Votre fichier client est vide</h1>
+        <Button @click="clientModal?.toggle">🎉 Ajouter votre premier client 🎉</Button>
+    </div>
 
     <va-alert class="mt-3" border="left">
         <span>
@@ -94,4 +87,5 @@ function filterExact(source) {
             <va-chip>{{ filteredCount }}</va-chip>
         </span>
     </va-alert>
+    <ClientModal ref="clientModal"></ClientModal>
 </template>
