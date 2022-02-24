@@ -31,18 +31,14 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
 
 <template>
   <h1>Fichier client</h1>
-  <div class="-mb-2 py-2 flex flex-wrap flex-grow justify-between">
-    <div class="flex items-center py-2">
+  <div class="-mb-2 py-2 flex justify-between ">
       <input
-        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-        id="inline-searcg"
+        class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        id="inline-search"
         type="text"
         placeholder="Rechercher"
       />
-    </div>
-    <div class="flex items-center py-2">
-      <Button @click="clientModal?.toggle">Ajouter un client</Button>
-    </div>
+      <va-button @click="clientModal?.toggle" :rounded="false" class="max-w-60">Ajouter un client</va-button>
   </div>
   <div class="-my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
     <div
@@ -78,11 +74,11 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
     </div>
     <div
       v-if="getClientsInAlphabeticalOrder()?.length <= 0"
-      class="w-full flex flex-col justify-center items-center h-100"
+      class="w-full flex flex-col justify-center items-center p-30"
     >
     <h1>🥺</h1>
       <h1 class="font-weight-10 mb-5">Votre fichier client est vide</h1>
-      <Button @click="clientModal?.toggle">🎉 Ajouter votre premier client 🎉</Button>
+      <va-button @click="clientModal?.toggle" :rounded="false" class="mr-4">🎉 Ajouter votre premier client 🎉</va-button>
     </div>
   </div>
   <ClientModal ref="clientModal"></ClientModal>

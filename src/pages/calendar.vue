@@ -30,20 +30,18 @@ const { clients } = storeToRefs(clientStore)
 
 <template>
   <h1>Calendrier</h1>
-  <div class="-mb-2 py-2 flex flex-wrap flex-grow justify-between">
-    <div class="flex items-center py-2">
+  <div class="-mb-2 py-2 flex justify-between">
       <input
         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-700"
         id="inline-searcg"
         type="text"
         placeholder="Rechercher"
       />
-    </div>
-    <div class="flex items-center py-2">
+
       <Button
         @click="clients && clients.length > 0 ? createEventModal?.toggle() : noClientModal?.toggle()"
       >Ajouter une séance</Button>
-    </div>
+
   </div>
   <CalendarTable></CalendarTable>
   <EventModal ref="createEventModal"></EventModal>
