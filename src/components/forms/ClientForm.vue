@@ -99,20 +99,15 @@ defineExpose({
 </script>
 <template>
     <form @submit.prevent="onSubmit">
-        <h3 class="mb-2 px-2 py-1 rounded bg-gray-500 text-white">Informations de contact</h3>
+    <Separator>Informations de contact</Separator>
         <div class="flex">
             <div class="w-1/3 mr-4">
                 <AvatarField></AvatarField>
             </div>
             <div class="w-2/3">
                 <div class="mb-2 w-full">
-                    <label for="last_name">Nom de famille</label>
-                    <input
-                        id="last_name"
-                        name="last_name"
-                        placeholder="Nom de famille"
-                        v-model="last_name"
-                    />
+                    <Field label="Nom de famille" id="last_name"
+                        name="last_name" :value="last_name" :error="lastNameError" placeholder="Nom de famille"></Field>
                     <span class="error">{{ lastNameError }}</span>
                 </div>
 
@@ -129,9 +124,10 @@ defineExpose({
             </div>
         </div>
         <div class="mb-2 w-full">
-            <label for="mail">Adresse e-mail</label>
+            <Field label="Adresse e-mail" id="mail" type="email" :value="mail" :error="mailError"></Field>
+            <!-- <label for="mail">Adresse e-mail</label>
             <input type="email" id="mail" placeholder="Adresse e-mail" v-model="mail" />
-            <span class="error">{{ mailError }}</span>
+            <span class="error">{{ mailError }}</span> -->
         </div>
         <!-- <label for="phone" class="form-label">Numéro(s) de téléphone</label>
         <div class="flex space-x-4" v-for="phone, index in phones" :key="index">
@@ -159,7 +155,7 @@ defineExpose({
             ></iconoir:trash>
         </div>
         <Button class="w-full" type="button" @click="addPhoneField()">Ajouter un numéro de téléphone</Button>-->
-        <h3 class="mb-2 px-2 py-1 rounded bg-gray-500 text-white">Adresse</h3>
+        <Separator>Adresse</Separator>
         <div class="mb-2 w-full">
             <input name="address" placeholder="Adresse" v-model="address" />
             <span class="error">{{ addressError }}</span>

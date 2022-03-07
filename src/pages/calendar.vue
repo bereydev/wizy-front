@@ -64,14 +64,36 @@ function isDateDisabled(timestamp: number) {
     :is-date-disabled="isDateDisabled"
     @update:value="handleUpdateValue"
   >
-    
-    <div class="flex flex-col h-full justify-between">
-      <div class="flex flex-col space-y-1 mt-2">
-<div square class="bg-green-400  flex-grow-0 rounded text-gray-800 px-3 truncate">Premier entretient </div>
-<div square class="bg-red-400  flex-grow-0 rounded text-gray-800 px-3 truncate">Entretient final </div>
+    <div class="flex flex-col h-full">
+      <div class="flex flex-col space-y-1 pt-2">
+        <div
+          square
+          class="bg-green-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Premier entretient</div>
+        <div
+          square
+          class="bg-red-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Entretient final</div>
+        <div
+          square
+          class="bg-green-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Premier entretient</div>
+        <div
+          square
+          class="bg-red-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Entretient final</div>
+        <div
+          square
+          class="bg-green-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Premier entretient</div>
+        <div
+          square
+          class="bg-red-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Entretient final</div>
       </div>
       
-<va-button :rounded="false" class="flex-grow-0 mb-2 w-full"><iconoir:calendar class="mr-2"/>Ajouter</va-button>
+        <PlusButton @click="clients && clients.length > 0 ? createEventModal?.toggle(new Date(year, month, date)) : noClientModal?.toggle()"/>
+     
     </div>
   </n-calendar>
   <EventModal ref="createEventModal"></EventModal>

@@ -1,7 +1,16 @@
 <script setup lang="ts">
+interface Props {
+    date: Date
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    date: () => new Date()
+})
+
+const {date: now} = props
+
 const start = computed(() => new Date(`${startDateString.value} ${startTimeString.value}`));
 const end = computed<Date>(() => new Date(`${startDateString.value} ${endTimeString.value}`));
-const now = new Date()
 function completeZero(value: number) {
     return (value < 10 ? '0' : '') + value
 }

@@ -7,9 +7,16 @@ import { useEventStore } from '~/stores/event';
 import { storeToRefs } from 'pinia';
 import { useEventModelStore } from '~/stores/event-model';
 import RangeField from '~/components/RangeField.vue'
+import { date } from 'yup';
 
-const client = ref()
-const eventModel = ref()
+interface Props {
+    date: Date
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    date: () => new Date()
+})
+
 const note = ref("")
 
 const clientStore = useClientStore()
@@ -40,6 +47,10 @@ function createEventModelChoice(eventModel: EventModel) {
 
 const clientOptions = clients.value.map(client => createClientChoice(client))
 const eventModelOptions = eventModels.value.map(eventModel => createEventModelChoice(eventModel))
+
+console.log(eventModelOptions)
+const client = ref(clientOptions?.[0]?.value)
+const eventModel = ref(eventModelOptions?.[0]?.value)
 
 async function submitCreate() {
     createEvent({
@@ -73,7 +84,7 @@ defineExpose({
             <Multiselect v-model="client" :searchable="true" :options="clientOptions" />
         </div>
     </div>
-    <!-- <RangeField ref="rangeField"></RangeField> -->
+    <RangeField ref="rangeField" :date="props.date"></RangeField>
     
     <label for="note" class="form-label">Note</label>
     <textarea class="w-full field" rows="9"></textarea>
