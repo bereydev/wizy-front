@@ -3,12 +3,18 @@ import { useUserStore } from '~/stores/user';
 import { storeToRefs } from 'pinia'
 
 const userStore = useUserStore()
-const { currentUser } = storeToRefs(userStore)
+const { currentUser } = userStore
 const { logout } = userStore
 const router = useRouter()
 
 const isOpen = ref(false)
 const hovered = ref(false)
+
+const initials = `${currentUser?.first_name[0]}${currentUser?.last_name[0]}`
+
+function toggle() {
+  isOpen.value = !isOpen.value
+}
 
 function onLogout() {
   logout()
@@ -19,10 +25,10 @@ function onLogout() {
 <template>
   <div id="dropdown" class="relative inline-block">
     <va-hover v-model="hovered">
-      <va-avatar @click="isOpen = true" :color="hovered ? '#5fa9fa':'primary'">{{ currentUser?.first_name[0] }}{{ currentUser?.last_name[0] }}</va-avatar>
+      <va-avatar @click="toggle" :color="hovered ? '#5fa9fa':'primary'">{{ initials}}</va-avatar>
     </va-hover>
 
-    <div v-if="isOpen" @click="isOpen = false" class="fixed inset-0" tabindex="-1"></div>
+    <div v-if="isOpen" @click="toggle" class="fixed inset-0" tabindex="-1"></div>
 
     <transition
       enter-class="opacity-0 transform scale-90 transition-all"
@@ -38,13 +44,14 @@ function onLogout() {
             <a href="#" class="block px-6 py-3 leading-tight hover:bg-gray-200">Mon profile</a>
           </div>
           <div class="border-t-2 border-gray-200">
-            <a
-              href="#"
-              class="block px-6 py-3 leading-tight hover:bg-gray-200"
-            >Editer les types de séances</a>
+            <router-link
+            @click="toggle"
+          class="block px-6 py-3 leading-tight hover:bg-gray-200"
+          to="/event-model"
+        >Editer les types de séances</router-link>
           </div>
           <div class="flex">
-            <va-button @click="onLogout" outline color="danger" class="m-2">Se déconnecter</va-button>
+            <va-button @click="onLogout" outline :rounded="false" color="danger" class="m-2">Se déconnecter</va-button>
           </div>
         </div>
       </div>

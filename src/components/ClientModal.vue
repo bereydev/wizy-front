@@ -4,8 +4,6 @@ import Modal from '../components/Modal.vue'
 import { useClientStore } from '~/stores/client';
 import type { Client } from "~/interface"
 
-type Submition = 'update' | 'create'
-
 
 const clientStore = useClientStore()
 const { createClient, updateClient } = clientStore
@@ -36,7 +34,7 @@ defineExpose({
 </script>
 
 <template>
-    <Modal ref="modal">
+    <ModalForm ref="modal">
         <template v-slot:title>
             <h1>Ajouter un nouveau client</h1>
         </template>
@@ -44,8 +42,8 @@ defineExpose({
         <ClientForm ref="form" :submitFunction="submitFunction"></ClientForm>
 
         <template v-slot:footer>
-            <Button type="submit" @click="modal?.toggle">Annuler</Button>
+            <Button @click="modal?.toggle">Annuler</Button>
             <Button type="submit" @click="form?.submit(), modal?.toggle()">Enregistrer</Button>
         </template>
-    </Modal>
+    </ModalForm>
 </template>
