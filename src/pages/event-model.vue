@@ -7,6 +7,8 @@ const eventModelModal = ref<InstanceType<typeof EventModelModal>>()
   let seance2 = {title: "Séance meditation", description:"c'est une séance détente", color:"bg-green-500", modal:eventModelModal.value };
   let seance3 = {title: "Séance relax", description:"c'est une séance détente", color:"bg-red-500", modal:eventModelModal.value };
   let eventModels = {seance1, seance2, seance3};
+
+  const activeEventModel = "";
   
 </script>
 
@@ -21,14 +23,14 @@ const eventModelModal = ref<InstanceType<typeof EventModelModal>>()
 formulaire et lui passer les données titre, descritpion, section, confidentialité, couleur-->
 <div class="row">
     <li v-for="eventModel in eventModels" class="list-none">
-      <a @click="eventModelModal?.toggle"> 
+      <a @click="eventModelModal?.toggle" && activeEventModel=eventModel> 
         <EventModelCard :title="eventModel.title" :description="eventModel.description" :color="eventModel.color" :modal="eventModel.modal"></EventModelCard>
      </a>
     </li>
   </div>
 
 <div class="min-w-70rem">
-  <EventModelModal ref="eventModelModal"></EventModelModal>
+  <EventModelModal ref="eventModelModal" activeEventModel="activeEventModel"></EventModelModal>
 </div>
 
 
