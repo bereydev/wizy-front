@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isYesterday, addDays } from 'date-fns'
+import { NCalendar } from 'naive-ui'
 
 import Modal from "../components/Modal.vue"
 import EventModal from "../components/EventModal.vue"
@@ -26,26 +28,74 @@ const { clients } = storeToRefs(clientStore)
 //   return `${date.getHours()}h${(date.getMinutes()<10?'0':'') + date.getMinutes()}`
 // }
 
+const value = ref(addDays(Date.now(), 1).valueOf())
+function handleUpdateValue(
+  _: number,
+  { year, month, date }: { year: number; month: number; date: number }
+) {
+  console.log(`${year}-${month}-${date}`)
+}
+function isDateDisabled(timestamp: number) {
+  if (isYesterday(timestamp)) {
+    return true
+  }
+  return false
+}
+
 </script>
 
 <template>
   <h1>Calendrier</h1>
-  <div class="-mb-2 py-2 flex flex-wrap flex-grow justify-between">
-    <div class="flex items-center py-2">
-      <input
-        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-700"
-        id="inline-searcg"
-        type="text"
-        placeholder="Rechercher"
-      />
-    </div>
-    <div class="flex items-center py-2">
-      <Button
-        @click="clients && clients.length > 0 ? createEventModal?.toggle() : noClientModal?.toggle()"
-      >Ajouter une séance</Button>
-    </div>
+  <div class="-mb-2 py-2 flex justify-between">
+    <input
+      class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-700"
+      id="inline-searcg"
+      type="text"
+      placeholder="Rechercher"
+    />
+
+    <Button
+      @click="clients && clients.length > 0 ? createEventModal?.toggle() : noClientModal?.toggle()"
+    >Ajouter une séance</Button>
   </div>
-  <CalendarTable></CalendarTable>
+  <n-calendar
+    v-model:value="value"
+    #="{ year, month, date }"
+    :is-date-disabled="isDateDisabled"
+    @update:value="handleUpdateValue"
+  >
+    <div class="flex flex-col h-full">
+      <div class="flex flex-col space-y-1 pt-2">
+        <div
+          square
+          class="bg-green-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Premier entretient</div>
+        <div
+          square
+          class="bg-red-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Entretient final</div>
+        <div
+          square
+          class="bg-green-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Premier entretient</div>
+        <div
+          square
+          class="bg-red-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Entretient final</div>
+        <div
+          square
+          class="bg-green-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Premier entretient</div>
+        <div
+          square
+          class="bg-red-400 flex-grow-0 rounded text-gray-800 px-3 truncate"
+        >Entretient final</div>
+      </div>
+      
+        <PlusButton @click="clients && clients.length > 0 ? createEventModal?.toggle(new Date(year, month, date)) : noClientModal?.toggle()"/>
+     
+    </div>
+  </n-calendar>
   <EventModal ref="createEventModal"></EventModal>
   <ClientModal ref="createClientModal"></ClientModal>
   <Modal ref="noClientModal">
