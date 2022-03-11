@@ -12,7 +12,7 @@ const { getTools, getFavTools, getNonFavTools } = toolStore
 const router = useRouter()
 
 onMounted(async () => {
-    try {
+  try {
     await getTools()
   } catch (error: any) {
     console.error(error.response.status)
@@ -33,32 +33,18 @@ const toolForm = ref<InstanceType<typeof ToolForm>>()
 
 <template>
   <h1>Outils</h1>
-  <div class="-mb-2 py-2 flex flex-wrap flex-grow justify-between">
-    <div class="flex items-center py-2">
-      <input
-        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-        id="inline-searcg"
-        type="text"
-        placeholder="Rechercher"
-      />
-    </div>
-    <div class="flex items-center py-2">
-      <Button @click="createModal?.toggle">Ajouter un outil</Button>
-      <Modal ref="createModal">
-        <template v-slot:title>
-          <h1>Ajouter un nouvel outil</h1>
-        </template>
-        <ToolForm ref="toolForm"></ToolForm>
-        <template v-slot:footer>
-          <Button @click="createModal?.toggle">Annuler</Button>
-          <Button @click="createModal?.toggle(), toolForm?.submitCreate()">Enregister</Button>
-        </template>
-      </Modal>
-    </div>
+  <div class="py-2 flex justify-between">
+    <input
+      class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+      id="inline-search"
+      type="text"
+      placeholder="Rechercher"
+    />
+    <va-button @click="createModal?.toggle" :rounded="false" class="max-w-60">Ajouter un outil</va-button>
   </div>
   <div v-if="getFavTools() && getFavTools().length">
     <h2>Favoris</h2>
-    <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+    <div class="flex overflow-x-scroll py-4 hide-scroll-bar">
       <div class="flex flex-nowrap">
         <div v-for="tool in getFavTools()" :key="tool.id" class="inline-block px-3">
           <div class="w-64 max-w-xs">
@@ -81,6 +67,16 @@ const toolForm = ref<InstanceType<typeof ToolForm>>()
       </div>
     </div>
   </div>
+  <Modal ref="createModal">
+    <template v-slot:title>
+      <h1>Ajouter un nouvel outil</h1>
+    </template>
+    <ToolForm ref="toolForm"></ToolForm>
+    <template v-slot:footer>
+      <Button @click="createModal?.toggle">Annuler</Button>
+      <Button @click="createModal?.toggle(), toolForm?.submitCreate()">Enregister</Button>
+    </template>
+  </Modal>
 </template>
 
 <style>

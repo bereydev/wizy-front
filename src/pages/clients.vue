@@ -31,7 +31,7 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
 
 <template>
   <h1>Fichier client</h1>
-  <div class="-mb-2 py-2 flex justify-between ">
+  <div class="py-2 flex justify-between ">
       <input
         class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
         id="inline-search"
@@ -40,7 +40,7 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
       />
       <va-button @click="clientModal?.toggle" :rounded="false" class="max-w-60">Ajouter un client</va-button>
   </div>
-  <div class="-my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+  <div class="my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
     <div
       class="align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200"
     >
@@ -78,7 +78,7 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
     >
     <h1>🥺</h1>
       <h1 class="font-weight-10 mb-5">Votre fichier client est vide</h1>
-      <va-button @click="clientModal?.toggle" :rounded="false" class="mr-4">🎉 Ajouter votre premier client 🎉</va-button>
+      <va-button @click="clientModal?.toggle" :rounded="false">🎉 Ajouter votre premier client 🎉</va-button>
     </div>
   </div>
   <ClientModal ref="clientModal"></ClientModal>
