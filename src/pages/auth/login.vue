@@ -58,11 +58,8 @@ async function onSubmit(values) {
       <ErrorMessage class="error" name="password" />
     </div>
 
-    <Button type="submit" class="w-full">Se connecter</Button>
+    <va-button :rounded="false" class="w-full" type="submit">Se connecter</va-button>
   </Form>
-  <div class="text-right w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-4">
-    <a class="text-sm font-bold text-teal-500 hover:underline cursor-pointer">Mot de passe oublié ?</a>
-  </div>
 </template>
 
 <route lang="yaml">
