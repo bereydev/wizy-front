@@ -45,15 +45,16 @@ function isDateDisabled(timestamp: number) {
 </script>
 
 <template>
-  <h1>Calendrier</h1>
+  
   <div class="py-2 flex justify-between ">
+    <h1>Calendrier</h1>
       <input
-        class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none mr-2 focus:bg-white focus:border-purple-500"
         id="inline-search"
         type="text"
         placeholder="Rechercher"
       />
-      <va-button @click="clients && clients.length > 0 ? createEventModal?.toggle() : noClientModal?.toggle()" :rounded="false" class="max-w-60">Ajouter une séance</va-button>
+      <va-button @click="clients && clients.length > 0 ? createEventModal?.toggle() : noClientModal?.toggle()" :rounded="false" class="max-w-max">Ajouter une séance</va-button>
   </div>
   <n-calendar
     v-model:value="value"

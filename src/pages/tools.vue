@@ -32,15 +32,15 @@ const toolForm = ref<InstanceType<typeof ToolForm>>()
 </script>
 
 <template>
-  <h1>Outils</h1>
   <div class="py-2 flex justify-between">
+    <h1>Outils</h1>
     <input
-      class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+      class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight mr-2 focus:outline-none focus:bg-white focus:border-purple-500"
       id="inline-search"
       type="text"
       placeholder="Rechercher"
     />
-    <va-button @click="createModal?.toggle" :rounded="false" class="max-w-60">Ajouter un outil</va-button>
+    <va-button @click="createModal?.toggle" :rounded="false" class="max-w-max">Ajouter un outil</va-button>
   </div>
   <div v-if="getFavTools() && getFavTools().length">
     <h2>Favoris</h2>

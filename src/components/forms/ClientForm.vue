@@ -183,8 +183,7 @@ defineExpose({
 
             <div class="w-1/2"></div>
         </div>
-
-        <h3 class="mb-2 px-2 py-1 rounded bg-gray-500 text-white">Comptabilité</h3>
+<Separator>Comptabilité</Separator>
         <label for="pdf-contract" class="form-label">PDF contract client</label>
         <input type="file" class="field" access="false" multiple="false" />
         <div class="flex">
@@ -217,7 +216,7 @@ defineExpose({
             </div>
         </div>
 
-        <h3 class="mb-2 px-2 py-1 rounded bg-gray-500 text-white">Note</h3>
+        <Separator>Note</Separator>
         <div class="mb-2 w-full">
             <textarea
                 id="note"

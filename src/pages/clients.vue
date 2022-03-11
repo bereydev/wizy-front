@@ -30,15 +30,16 @@ const clientModal = ref<InstanceType<typeof ClientModal>>()
 </script>
 
 <template>
-  <h1>Fichier client</h1>
+  
   <div class="py-2 flex justify-between ">
+    <h1>Fichier client</h1>
       <input
-        class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        class="bg-gray-200 appearance-none border-2 w-60 max-w-60 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none mr-2 focus:bg-white focus:border-purple-500"
         id="inline-search"
         type="text"
         placeholder="Rechercher"
       />
-      <va-button @click="clientModal?.toggle" :rounded="false" class="max-w-60">Ajouter un client</va-button>
+      <va-button @click="clientModal?.toggle" :rounded="false" class="max-w-max">Ajouter un client</va-button>
   </div>
   <div class="my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
     <div
