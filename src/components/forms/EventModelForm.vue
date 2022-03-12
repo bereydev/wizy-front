@@ -2,7 +2,7 @@
 import { EventModel } from '~/interface';
 
 interface Props {
-    eventModel: EventModel;
+    eventModel?: EventModel;
 }
 
 const props = defineProps<Props>() 
