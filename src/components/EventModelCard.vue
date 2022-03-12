@@ -5,7 +5,6 @@ interface Props {
     description: String;
     color: String;
 }
-// Rajouter props pour lien modal 
 
 const props = defineProps<Props>() 
 

@@ -23,7 +23,6 @@ defineExpose({
 
 <template>
     <Modal ref="modal" size="max-w-5xl">
-        {{props.eventModel}}
         <template v-slot:title>
             <h1>Ajouter un nouveau nouveau type de séance</h1>
         </template>

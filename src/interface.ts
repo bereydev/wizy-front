@@ -32,14 +32,13 @@ export interface EventModel extends BaseData {
     name: string
     description : string
     color: string
-    section: Section
+    section: Array<Section>
     teacher_id?: string
 }
 
 export interface Section extends BaseData {
    name:string
-   confidentiality:string
-   
+   confidentiality:"Public" | "Confidentiel"
 }
 
 export interface Client extends BaseData {
