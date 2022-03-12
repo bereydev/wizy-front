@@ -30,8 +30,16 @@ export interface Event extends BaseData {
 
 export interface EventModel extends BaseData {
     name: string
+    description : string
     color: string
+    section: Section
     teacher_id?: string
+}
+
+export interface Section extends BaseData {
+   name:string
+   confidentiality:string
+   
 }
 
 export interface Client extends BaseData {

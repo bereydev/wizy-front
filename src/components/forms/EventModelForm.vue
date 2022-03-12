@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import { EventModel } from '~/interface';
+
+interface Props {
+    eventModel: EventModel;
+}
+
+const props = defineProps<Props>() 
 
 </script>
 <template>
@@ -7,10 +14,10 @@
         <div class="flex flex-col max-w-md">
           <div class=" flex flex-row m-2">
               <va-color-palette class="mt-3 ml-2" :palette="['#4ae387']"/>
-              <input value="Le petit titre event model" class="text-3xl border-0 border-b-2 rounded-none">
+              <input :value="props.name" class="text-3xl border-0 border-b-2 rounded-none">
           </div>
             <h2 class="m-2">Description</h2>
-            <textarea class="m-2 h-16rem border-0 border-b-2 rounded-none resize-none">Ceci est une description bien faite </textarea>
+            <textarea class="m-2 h-16rem border-0 border-b-2 rounded-none resize-none">{{props.description}} </textarea>
         </div>
         <div class="ml-4 flex flex-row">
           <div class="flex flex-col">
