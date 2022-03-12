@@ -10,6 +10,12 @@ const eventModelModal = ref<InstanceType<typeof EventModelModal>>()
   let eventModels = {seance1, seance2, seance3};
 
   const activeEventModel = ref<EventModel>();
+
+  function setActiveEventModel(eventModel: EventModel) {
+    activeEventModel.value = eventModel
+    console.log("setActiveEventModel")
+    console.log(activeEventModel.value)
+  }
   
 </script>
 
@@ -24,7 +30,7 @@ const eventModelModal = ref<InstanceType<typeof EventModelModal>>()
 formulaire et lui passer les données titre, descritpion, section, confidentialité, couleur-->
 <div class="row">
     <li v-for="eventModel in eventModels" class="list-none">
-      <a @click="activeEventModel=eventModel, eventModelModal?.toggle"> 
+      <a @click="activeEventModel=eventModel, eventModelModal?.toggle()"> 
         <EventModelCard :name="eventModel.name" :description="eventModel.description" :color="eventModel.color"></EventModelCard>
      </a>
     </li>

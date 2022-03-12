@@ -4,7 +4,7 @@ import EventModelForm from './forms/EventModelForm.vue'
 import Modal from './Modal.vue'
 
 interface Props {
-    eventModel: EventModel;
+    eventModel?: EventModel;
 }
 
 const props = defineProps<Props>() 
@@ -23,6 +23,7 @@ defineExpose({
 
 <template>
     <Modal ref="modal" size="max-w-5xl">
+        {{props.eventModel}}
         <template v-slot:title>
             <h1>Ajouter un nouveau nouveau type de séance</h1>
         </template>
