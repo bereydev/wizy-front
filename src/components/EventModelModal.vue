@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { EventModel } from '~/interface';
 import EventModelForm from './forms/EventModelForm.vue'
 import Modal from './Modal.vue'
+
+interface Props {
+    eventModel: EventModel;
+}
+
+const props = defineProps<Props>() 
 
 const form = ref<InstanceType<typeof EventModelForm>>()
 const modal = ref<InstanceType<typeof Modal>>()
@@ -20,7 +27,7 @@ defineExpose({
             <h1>Ajouter un nouveau nouveau type de séance</h1>
         </template>
 
-        <EventModelForm ref="form"></EventModelForm>
+        <EventModelForm :eventModel="props.eventModel" ref="form"></EventModelForm>
 
         <template v-slot:footer>
             <Button type="submit" @click="modal?.toggle">Annuler</Button>
