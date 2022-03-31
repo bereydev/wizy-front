@@ -61,13 +61,6 @@ const onSubmit = handleSubmit(values => {
     alert(JSON.stringify(values, null, 2));
 });
 
-const { value: mail, errorMessage: mailError } = useField<string>('mail')
-const { value: first_name, errorMessage: firstNameError } = useField<string>('first_name')
-const { value: last_name, errorMessage: lastNameError } = useField<string>('last_name')
-const { value: address, errorMessage: addressError } = useField<string>('address')
-const { value: address2, errorMessage: address2Error } = useField<string>('address2')
-const { value: city, errorMessage: cityError } = useField<string>('city')
-const { value: postcode, errorMessage: postcodeError } = useField<string>('postcode')
 const { value: state, errorMessage: stateError } = useField<string>('state')
 const { value: price, errorMessage: priceError } = useField<string>('price')
 const { value: discount, errorMessage: discountError } = useField<string>('discount')
@@ -99,36 +92,18 @@ defineExpose({
 </script>
 <template>
     <form @submit.prevent="onSubmit">
-    <Separator>Informations de contact</Separator>
+        <Separator>Informations de contact</Separator>
         <div class="flex">
             <div class="w-1/3 mr-4">
                 <AvatarField></AvatarField>
             </div>
             <div class="w-2/3">
-                <div class="mb-2 w-full">
-                    <Field label="Nom de famille" id="last_name"
-                        name="last_name" :value="last_name" :error="lastNameError" placeholder="Nom de famille"></Field>
-                    <span class="error">{{ lastNameError }}</span>
-                </div>
-
-                <div class="mb-2 w-full">
-                    <label for="first_name">Prénom</label>
-                    <input
-                        id="first_name"
-                        name="first_name"
-                        placeholder="Prénom"
-                        v-model="first_name"
-                    />
-                    <span class="error">{{ firstNameError }}</span>
-                </div>
+                <Field label="Prénom" name="first_name"></Field>
+                <Field label="Nom de famille" name="last_name"></Field>
             </div>
         </div>
-        <div class="mb-2 w-full">
-            <Field label="Adresse e-mail" id="mail" type="email" :value="mail" :error="mailError"></Field>
-            <!-- <label for="mail">Adresse e-mail</label>
-            <input type="email" id="mail" placeholder="Adresse e-mail" v-model="mail" />
-            <span class="error">{{ mailError }}</span> -->
-        </div>
+        <Field label="Adresse e-mail" name="mail" type="email"></Field>
+
         <!-- <label for="phone" class="form-label">Numéro(s) de téléphone</label>
         <div class="flex space-x-4" v-for="phone, index in phones" :key="index">
             <input
@@ -156,22 +131,14 @@ defineExpose({
         </div>
         <Button class="w-full" type="button" @click="addPhoneField()">Ajouter un numéro de téléphone</Button>-->
         <Separator>Adresse</Separator>
-        <div class="mb-2 w-full">
-            <input name="address" placeholder="Adresse" v-model="address" />
-            <span class="error">{{ addressError }}</span>
-        </div>
-        <div class="mb-2 w-full">
-            <input name="address2" placeholder="Complément d'adresse" v-model="address2" />
-            <span class="error">{{ address2Error }}</span>
-        </div>
-        <div class="flex">
-            <div class="mb-2 w-1/2 mr-4">
-                <input id="city" name="city" placeholder="Ville" v-model="city" />
-                <span class="error">{{ cityError }}</span>
-            </div>
-            <div class="mb-2 w-1/2">
-                <input id="postcode" name="postcode" placeholder="Code postal" v-model="postcode" />
-                <span class="error">{{ postcodeError }}</span>
+        <div class="w-full space-y-2">
+            <Field label="Adresse" name="address"></Field>
+
+            <Field label="Complément d'adresse" name="address2"></Field>
+
+            <div class="flex justify- between space-x-2">
+                <Field label="Ville" name="city"></Field>
+                <Field label="Code postal" name="postcode"></Field>
             </div>
         </div>
 
@@ -183,7 +150,7 @@ defineExpose({
 
             <div class="w-1/2"></div>
         </div>
-<Separator>Comptabilité</Separator>
+        <Separator>Comptabilité</Separator>
         <label for="pdf-contract" class="form-label">PDF contract client</label>
         <input type="file" class="field" access="false" multiple="false" />
         <div class="flex">

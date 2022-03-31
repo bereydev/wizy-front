@@ -20,6 +20,7 @@ declare module 'vue' {
     FreeTimeline: typeof import('./components/FreeTimeline.vue')['default']
     'Iconoir:addUser': typeof import('~icons/iconoir/add-user')['default']
     'Iconoir:calendar': typeof import('~icons/iconoir/calendar')['default']
+    'Iconoir:plus': typeof import('~icons/iconoir/plus')['default']
     IconoirArrowRight: typeof import('~icons/iconoir/arrow-right')['default']
     'IconParkOutline:close': typeof import('~icons/icon-park-outline/close')['default']
     LoginForm: typeof import('./components/forms/LoginForm.vue')['default']

@@ -34,7 +34,7 @@ defineExpose({
 </script>
 
 <template>
-    <ModalForm ref="modal">
+    <ModalForm ref="modal" size="max-w-2xl">
         <template v-slot:title>
             <h1>Ajouter un nouveau client</h1>
         </template>

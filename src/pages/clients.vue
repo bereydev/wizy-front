@@ -13,15 +13,15 @@ onMounted(async () => {
   try {
     await getClients()
   } catch (error: any) {
-    console.error(error.response.status)
-    console.table(error.response.data.detail)
-    if (error.response.status == 403) {
-      // Unvalidate the access token and redirect to login
-      logout()
-      router.push('/auth/login')
-    } else if (error.response.status == 422) {
-      return
-    }
+    // console.error(error.response.status)
+    // console.table(error.response.data.detail)
+    // if (error.response.status == 403) {
+    //   // Unvalidate the access token and redirect to login
+    //   logout()
+    //   router.push('/auth/login')
+    // } else if (error.response.status == 422) {
+    //   return
+    // }
   }
 })
 

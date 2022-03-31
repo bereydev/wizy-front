@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // import type { Field } from "~/interface"
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import { useUserStore } from '~/stores/user'
 
@@ -51,11 +51,9 @@ async function onSubmit(values) {
   >
     <div class="w-full mb-2">
       <Field name="username" type="email" autocomplete="username" />
-      <ErrorMessage class="error" name="username" />
     </div>
     <div class="w-full mb-2">
       <Field name="password" type="password" autocomplete="current-password" />
-      <ErrorMessage class="error" name="password" />
     </div>
 
     <va-button :rounded="false" class="w-full" type="submit">Se connecter</va-button>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Field, ErrorMessage } from 'vee-validate'
+import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import { useUserStore } from '~/stores/user'
 
@@ -30,7 +30,7 @@ async function onSubmit(values) {
 </script>
 
 <template>
-  <div class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-4">
+  <div class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12">
     <h1 class="text-4xl font-semibold">Hello! Prêt à booster votre activité ?</h1>
     <p
       class="w-10/12 font-semibold text-gray-600 text-sm"
@@ -39,15 +39,12 @@ async function onSubmit(values) {
     <Form @submit="onSubmit" :validation-schema="schema" class="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6">
       <div class="w-full mb-2">
         <Field name="firstName" type="text" autocomplete="given-name" placeholder="Prénom" />
-        <ErrorMessage class="error" name="firstName" />
       </div>
       <div class="w-full mb-2">
         <Field name="lastName" type="text" autocomplete="family-name" placeholder="Nom de famille" />
-        <ErrorMessage class="error" name="lastName" />
       </div>
       <div class="w-full mb-2">
         <Field name="username" type="email" autocomplete="username" placeholder="Adresse e-mail" />
-        <ErrorMessage class="error" name="username" />
       </div>
       <div class="w-full mb-2">
         <Field
@@ -56,7 +53,6 @@ async function onSubmit(values) {
           autocomplete="new-password"
           placeholder="Mot de passe"
         />
-        <ErrorMessage class="error" name="password" />
       </div>
       <div class="w-full mb-2">
         <Field
@@ -65,7 +61,6 @@ async function onSubmit(values) {
           autocomplete="new-password"
           placeholder="Répéter le mot de passe"
         />
-        <ErrorMessage class="error" name="repeatPassword" />
       </div>
       <Button type="submit" class="w-full">S'inscrire</Button>
     </Form>
